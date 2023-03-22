@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="TestFusionModulos">
+        <createTable tableName="ADDITIONAL_CONCEPT_RECORD">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_ADDITIONAL_CONCEPT_RECORD"/>
+            </column>
+            <column name="ALLOCATABLE_DOCUMENT_ID" type="UUID"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="TestFusionModulos">
+        <createTable tableName="ADDRESS">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_ADDRESS"/>
+            </column>
+            <column name="POSTAL_CODE" type="VARCHAR(25)"/>
+            <column name="COMPLETE_ADDRESS" type="VARCHAR(255)"/>
+            <column name="BLOCK" type="VARCHAR(10)"/>
+            <column name="NAME" type="VARCHAR(255)"/>
+            <column name="WAY_NAME" type="VARCHAR(255)"/>
+            <column name="WAY_NUMBER" type="VARCHAR(25)"/>
+            <column name="OBSERVATIONS" type="VARCHAR(255)"/>
+            <column name="COUNTRY" type="VARCHAR(255)"/>
+            <column name="LEVEL_" type="VARCHAR(10)"/>
+            <column name="REGION" type="VARCHAR(255)"/>
+            <column name="WAY" type="VARCHAR(10)"/>
+            <column name="TOWN" type="VARCHAR(255)"/>
+            <column name="PROVINCE" type="VARCHAR(255)"/>
+            <column name="DOOR" type="VARCHAR(10)"/>
+            <column name="PERSON_ID" type="UUID"/>
+            <column name="ADDRESS_IS_MAIL_DESTINATION" type="BOOLEAN"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="3" author="TestFusionModulos">
+        <createTable tableName="ALLOCATION">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_ALLOCATION"/>
+            </column>
+            <column name="ALLOCATABLE_DOCUMENT_ID" type="UUID"/>
+            <column name="DESCRIPTION" type="VARCHAR(255)"/>
+            <column name="ALLOCATION_AMOUNT" type="DOUBLE"/>
+            <column name="ALLOCATION_PERCENT" type="DOUBLE"/>
+            <column name="CYCLE_ID" type="UUID"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="4" author="TestFusionModulos">
+        <createTable tableName="ATTACHMENT">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_ATTACHMENT"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="5" author="TestFusionModulos">
+        <createTable tableName="ATTACHMENT_COLLECTION">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_ATTACHMENT_COLLECTION"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="6" author="TestFusionModulos">
+        <createTable tableName="BANK_ACCOUNT">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_BANK_ACCOUNT"/>
+            </column>
+            <column name="FULL_BANK_ACCOUNT_CODE" type="VARCHAR(255)"/>
+            <column name="PERSON_ID" type="UUID"/>
+            <column name="FINANCIAL_INSTITUCION_PART" type="VARCHAR(10)"/>
+            <column name="OFFICE_PART" type="VARCHAR(10)"/>
+            <column name="CONTROL_DIGITS" type="VARCHAR(10)"/>
+            <column name="ACCOUNT_NUMBER" type="VARCHAR(25)"/>
+            <column name="OFFICE_ADDRESS_ID" type="UUID"/>
+            <column name="FINANCIAL_INSTITUTION_NAME" type="VARCHAR(255)"/>
+            <column name="SWIFT_BANK_CODE" type="VARCHAR(25)"/>
+            <column name="SWIFT_COUNTRY_CODE" type="VARCHAR(10)"/>
+            <column name="SWIFT_CONTROL_DIGITS" type="VARCHAR(10)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="7" author="TestFusionModulos">
+        <createTable tableName="CONTACT_INFO_ITEM">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_CONTACT_INFO_ITEM"/>
+            </column>
+            <column name="DATA_" type="VARCHAR(255)"/>
+            <column name="DATA_DESCRIPTION" type="VARCHAR(255)"/>
+            <column name="TYPE_" type="VARCHAR(255)"/>
+            <column name="PERSON_ID" type="UUID"/>
+            <column name="MAIL_FOR_PASSWORD_RECOVERY" type="BOOLEAN"/>
+            <column name="BANK_ACCOUNT_ID" type="UUID"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="8" author="TestFusionModulos">
+        <createTable tableName="CYCLE_">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_CYCLE_"/>
+            </column>
+            <column name="CODE" type="VARCHAR(50)"/>
+            <column name="CREATION_DATE" type="DATE"/>
+            <column name="CYCLE_TITLE" type="VARCHAR(255)"/>
+            <column name="DESCRIPTION" type="CLOB"/>
+            <column name="ATTACHMENT_COLLECTION_ID" type="UUID"/>
+            <column name="CYCLE_TYPE" type="VARCHAR(255)"/>
+            <column name="EXCLUDE_TASK_ORDER_SRCH_RESULT" type="BOOLEAN"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="9" author="TestFusionModulos">
+        <createTable tableName="CYCLE_UNIT_BRIDGE">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_CYCLE_UNIT_BRIDGE"/>
+            </column>
+            <column name="CYCLE_ID" type="UUID"/>
+            <column name="UNIT_ID" type="UUID"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="10" author="TestFusionModulos">
+        <createTable tableName="DOCUMENT">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_DOCUMENT"/>
+            </column>
+            <column name="TYPE_" type="VARCHAR(255)"/>
+            <column name="SUPPLIER_ID" type="UUID"/>
+            <column name="DOCUMENT_NUMBER" type="VARCHAR(255)"/>
+            <column name="ISSUE_DATE" type="DATE"/>
+            <column name="DESCRIPTION" type="CLOB"/>
+            <column name="TOTAL_BASE" type="DOUBLE"/>
+            <column name="TOTAL_AFTER_ADD_CONCEPTS" type="DOUBLE"/>
+            <column name="ATTACHMENT_COLLECTION_ID" type="UUID"/>
+            <column name="OMMIT_DOCUMENT_AT_PMT_CONTROL" type="BOOLEAN"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="11" author="TestFusionModulos">
+        <createTable tableName="ENERGY_CERTIFICATE">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_ENERGY_CERTIFICATE"/>
+            </column>
+            <column name="UNIT_ID" type="UUID"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="12" author="TestFusionModulos">
+        <createTable tableName="ENTRY_">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_ENTRY_"/>
+            </column>
+            <column name="CYCLE_ID" type="UUID"/>
+            <column name="ENTRY_CONTENT" type="CLOB"/>
+            <column name="CREATION_DATE" type="DATE"/>
+            <column name="EVENT_ID" type="UUID"/>
+            <column name="TASK_ORDER_ID" type="UUID"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="13" author="TestFusionModulos">
+        <createTable tableName="EVENT">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_EVENT"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)"/>
+            <column name="CREATION_DATE" type="DATE"/>
+            <column name="CYCLE_ID" type="UUID"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="14" author="TestFusionModulos">
+        <createTable tableName="LOCATION">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_LOCATION"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)"/>
+            <column name="ADDRESS_ID" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LOCATION_ABBREVIATION" type="VARCHAR(25)"/>
+            <column name="VERTICAL_PROPERTY" type="BOOLEAN"/>
+            <column name="LATITUDE" type="DOUBLE"/>
+            <column name="LONGITUDE" type="DOUBLE"/>
+            <column name="NUMBER_OF_LIFTS" type="INT"/>
+            <column name="OWNER_ID" type="UUID"/>
+            <column name="ATTACHMENT_COLLECTION_ID" type="UUID"/>
+            <column name="LAND_REGISTRY_INFORMATION" type="VARCHAR(255)"/>
+            <column name="FACADE_PICTURE_ID" type="UUID"/>
+            <column name="DISTRICT" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="15" author="TestFusionModulos">
+        <createTable tableName="LOCATION_COEFFICIENT">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_LOCATION_COEFFICIENT"/>
+            </column>
+            <column name="LOCATION_ID" type="UUID"/>
+            <column name="UNIT_ID" type="UUID"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="16" author="TestFusionModulos">
+        <createTable tableName="OCCUPANCY_CERTIFICATE">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_OCCUPANCY_CERTIFICATE"/>
+            </column>
+            <column name="UNIT_ID" type="UUID"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="17" author="TestFusionModulos">
+        <createTable tableName="OWNER">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_OWNER"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="18" author="TestFusionModulos">
+        <createTable tableName="PERSON">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PERSON"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="19" author="TestFusionModulos">
+        <createTable tableName="SUPPLIER">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_SUPPLIER"/>
+            </column>
+            <column name="PERSON_ID" type="UUID"/>
+            <column name="ACTIVITY_DESCRIPTION" type="VARCHAR(255)"/>
+            <column name="OBSERVATIONS" type="VARCHAR(255)"/>
+            <column name="COMMERCIAL_NAME" type="VARCHAR(255)"/>
+            <column name="SUPPORTS_TELEMATIC_PAYMENT" type="BOOLEAN"/>
+            <column name="SUPPORTS_DIRECT_DEBIT" type="VARCHAR(255)"/>
+            <column name="SEND_EMAIL_AT_INVOICE_APPROVAL" type="BOOLEAN"/>
+            <column name="SEND_EMAIL_AT_INVOICE_PAYMENT" type="BOOLEAN"/>
+            <column name="BANK_ACC_TELEMATIC_PAYMENTS_ID" type="UUID"/>
+            <column name="BANK_ACC_DIRECTDEBIT_PMTS_ID" type="UUID"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="20" author="TestFusionModulos">
+        <createTable tableName="TASK_APPOINTMENT">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TASK_APPOINTMENT"/>
+            </column>
+            <column name="TASK_ORDER_ID" type="UUID"/>
+            <column name="SUPPLIER_ID" type="UUID"/>
+            <column name="BUDGET_MANAGEMENT_TYPE" type="VARCHAR(255)"/>
+            <column name="SCHEDULED_START_DATE" type="DATE"/>
+            <column name="SCHEDULED_FINALISATION_DATE" type="DATE"/>
+            <column name="FINALISATION_DATE" type="DATE"/>
+            <column name="SUPPLIER_OBSERVATIONS" type="CLOB"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="21" author="TestFusionModulos">
+        <createTable tableName="TASK_DIARY_NOTE">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TASK_DIARY_NOTE"/>
+            </column>
+            <column name="TASK_ORDER_ID" type="UUID"/>
+            <column name="CONTENT" type="CLOB"/>
+            <column name="CREATION_DATE" type="DATE"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="22" author="TestFusionModulos">
+        <createTable tableName="TASK_ORDER">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TASK_ORDER"/>
+            </column>
+            <column name="CREATION_DATE" type="DATE"/>
+            <column name="PROPOSED_BY_ID" type="UUID"/>
+            <column name="DESCRIPTION" type="CLOB"/>
+            <column name="APPROXIMATE_DURATION_OF_TASK" type="VARCHAR(255)"/>
+            <column name="TIME_SLOT_PROPOSAL" type="VARCHAR(255)"/>
+            <column name="FINALISATION_DATE" type="DATE"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="23" author="TestFusionModulos">
+        <createTable tableName="UNIT">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_UNIT"/>
+            </column>
+            <column name="LOCATION_ID" type="UUID"/>
+            <column name="LEVEL_" type="VARCHAR(10)"/>
+            <column name="DOOR" type="VARCHAR(10)"/>
+            <column name="TYPE_" type="VARCHAR(255)"/>
+            <column name="AREA" type="DOUBLE"/>
+            <column name="ABBREVIATION_LEVEL_DOOR" type="VARCHAR(10)"/>
+            <column name="LAND_REGISTRY_INFORMATION" type="VARCHAR(255)"/>
+            <column name="OBSERVATIONS" type="VARCHAR(255)"/>
+            <column name="ATTACHMENT_COLLECTION_ID" type="UUID"/>
+            <column name="OWNER_ID" type="UUID"/>
+            <column name="UNIT_PLAN_ID" type="UUID"/>
+            <column name="EXCLUDE_FROM_EMPTY_UNIT_SEARCH" type="BOOLEAN"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="24" author="TestFusionModulos">
+        <addForeignKeyConstraint baseColumnNames="ALLOCATABLE_DOCUMENT_ID" baseTableName="ADDITIONAL_CONCEPT_RECORD"
+                                 constraintName="FK_ADDITIONALC_ON_ALLOCATABLE" referencedColumnNames="ID"
+                                 referencedTableName="DOCUMENT"/>
+    </changeSet>
+    <changeSet id="25" author="TestFusionModulos">
+        <addForeignKeyConstraint baseColumnNames="PERSON_ID" baseTableName="ADDRESS"
+                                 constraintName="FK_ADDRESS_ON_PERSON" referencedColumnNames="ID"
+                                 referencedTableName="PERSON"/>
+    </changeSet>
+    <changeSet id="26" author="TestFusionModulos">
+        <addForeignKeyConstraint baseColumnNames="ALLOCATABLE_DOCUMENT_ID" baseTableName="ALLOCATION"
+                                 constraintName="FK_ALLOCATION_ON_ALLOCATABLEDO" referencedColumnNames="ID"
+                                 referencedTableName="DOCUMENT"/>
+    </changeSet>
+    <changeSet id="27" author="TestFusionModulos">
+        <addForeignKeyConstraint baseColumnNames="CYCLE_ID" baseTableName="ALLOCATION"
+                                 constraintName="FK_ALLOCATION_ON_CYCLE" referencedColumnNames="ID"
+                                 referencedTableName="CYCLE_"/>
+    </changeSet>
+    <changeSet id="28" author="TestFusionModulos">
+        <addForeignKeyConstraint baseColumnNames="OFFICE_ADDRESS_ID" baseTableName="BANK_ACCOUNT"
+                                 constraintName="FK_BANKACCOUNT_ON_OFFICEADDRES" referencedColumnNames="ID"
+                                 referencedTableName="ADDRESS"/>
+    </changeSet>
+    <changeSet id="29" author="TestFusionModulos">
+        <addForeignKeyConstraint baseColumnNames="PERSON_ID" baseTableName="BANK_ACCOUNT"
+                                 constraintName="FK_BANK_ACCOUNT_ON_PERSON" referencedColumnNames="ID"
+                                 referencedTableName="PERSON"/>
+    </changeSet>
+    <changeSet id="30" author="TestFusionModulos">
+        <addForeignKeyConstraint baseColumnNames="BANK_ACCOUNT_ID" baseTableName="CONTACT_INFO_ITEM"
+                                 constraintName="FK_CONTACTINFOI_ON_BANKACCOUNT" referencedColumnNames="ID"
+                                 referencedTableName="BANK_ACCOUNT"/>
+    </changeSet>
+    <changeSet id="31" author="TestFusionModulos">
+        <addForeignKeyConstraint baseColumnNames="PERSON_ID" baseTableName="CONTACT_INFO_ITEM"
+                                 constraintName="FK_CONTACT_INFO_ITEM_ON_PERSON" referencedColumnNames="ID"
+                                 referencedTableName="PERSON"/>
+    </changeSet>
+    <changeSet id="32" author="TestFusionModulos">
+        <addForeignKeyConstraint baseColumnNames="ATTACHMENT_COLLECTION_ID" baseTableName="CYCLE_"
+                                 constraintName="FK_CYCLE_ON_ATTACHMENTCOLLECTI" referencedColumnNames="ID"
+                                 referencedTableName="ATTACHMENT_COLLECTION"/>
+    </changeSet>
+    <changeSet id="33" author="TestFusionModulos">
+        <addForeignKeyConstraint baseColumnNames="CYCLE_ID" baseTableName="CYCLE_UNIT_BRIDGE"
+                                 constraintName="FK_CYCLE_UNIT_BRIDGE_ON_CYCLE" referencedColumnNames="ID"
+                                 referencedTableName="CYCLE_"/>
+    </changeSet>
+    <changeSet id="34" author="TestFusionModulos">
+        <addForeignKeyConstraint baseColumnNames="UNIT_ID" baseTableName="CYCLE_UNIT_BRIDGE"
+                                 constraintName="FK_CYCLE_UNIT_BRIDGE_ON_UNIT" referencedColumnNames="ID"
+                                 referencedTableName="UNIT"/>
+    </changeSet>
+    <changeSet id="35" author="TestFusionModulos">
+        <addForeignKeyConstraint baseColumnNames="ATTACHMENT_COLLECTION_ID" baseTableName="DOCUMENT"
+                                 constraintName="FK_DOCUMENT_ON_ATTACHMENTCOLLE" referencedColumnNames="ID"
+                                 referencedTableName="ATTACHMENT_COLLECTION"/>
+    </changeSet>
+    <changeSet id="36" author="TestFusionModulos">
+        <addForeignKeyConstraint baseColumnNames="SUPPLIER_ID" baseTableName="DOCUMENT"
+                                 constraintName="FK_DOCUMENT_ON_SUPPLIER" referencedColumnNames="ID"
+                                 referencedTableName="SUPPLIER"/>
+    </changeSet>
+    <changeSet id="37" author="TestFusionModulos">
+        <addForeignKeyConstraint baseColumnNames="UNIT_ID" baseTableName="ENERGY_CERTIFICATE"
+                                 constraintName="FK_ENERGY_CERTIFICATE_ON_UNIT" referencedColumnNames="ID"
+                                 referencedTableName="UNIT"/>
+    </changeSet>
+    <changeSet id="38" author="TestFusionModulos">
+        <addForeignKeyConstraint baseColumnNames="CYCLE_ID" baseTableName="ENTRY_" constraintName="FK_ENTRY__ON_CYCLE"
+                                 referencedColumnNames="ID" referencedTableName="CYCLE_"/>
+    </changeSet>
+    <changeSet id="39" author="TestFusionModulos">
+        <addForeignKeyConstraint baseColumnNames="EVENT_ID" baseTableName="ENTRY_" constraintName="FK_ENTRY__ON_EVENT"
+                                 referencedColumnNames="ID" referencedTableName="EVENT"/>
+    </changeSet>
+    <changeSet id="40" author="TestFusionModulos">
+        <addForeignKeyConstraint baseColumnNames="TASK_ORDER_ID" baseTableName="ENTRY_"
+                                 constraintName="FK_ENTRY__ON_TASK_ORDER" referencedColumnNames="ID"
+                                 referencedTableName="TASK_ORDER"/>
+    </changeSet>
+    <changeSet id="41" author="TestFusionModulos">
+        <addForeignKeyConstraint baseColumnNames="CYCLE_ID" baseTableName="EVENT" constraintName="FK_EVENT_ON_CYCLE"
+                                 referencedColumnNames="ID" referencedTableName="CYCLE_"/>
+    </changeSet>
+    <changeSet id="42" author="TestFusionModulos">
+        <addForeignKeyConstraint baseColumnNames="UNIT_ID" baseTableName="LOCATION_COEFFICIENT"
+                                 constraintName="FK_LOCATIONCOEFFICIENT_ON_UNIT" referencedColumnNames="ID"
+                                 referencedTableName="UNIT"/>
+    </changeSet>
+    <changeSet id="43" author="TestFusionModulos">
+        <addForeignKeyConstraint baseColumnNames="LOCATION_ID" baseTableName="LOCATION_COEFFICIENT"
+                                 constraintName="FK_LOCATIONCOEFFIC_ON_LOCATION" referencedColumnNames="ID"
+                                 referencedTableName="LOCATION"/>
+    </changeSet>
+    <changeSet id="44" author="TestFusionModulos">
+        <addForeignKeyConstraint baseColumnNames="ADDRESS_ID" baseTableName="LOCATION"
+                                 constraintName="FK_LOCATION_ON_ADDRESS" referencedColumnNames="ID"
+                                 referencedTableName="ADDRESS"/>
+    </changeSet>
+    <changeSet id="45" author="TestFusionModulos">
+        <addForeignKeyConstraint baseColumnNames="ATTACHMENT_COLLECTION_ID" baseTableName="LOCATION"
+                                 constraintName="FK_LOCATION_ON_ATTACHMENTCOLLE" referencedColumnNames="ID"
+                                 referencedTableName="ATTACHMENT_COLLECTION"/>
+    </changeSet>
+    <changeSet id="46" author="TestFusionModulos">
+        <addForeignKeyConstraint baseColumnNames="FACADE_PICTURE_ID" baseTableName="LOCATION"
+                                 constraintName="FK_LOCATION_ON_FACADE_PICTURE" referencedColumnNames="ID"
+                                 referencedTableName="ATTACHMENT"/>
+    </changeSet>
+    <changeSet id="47" author="TestFusionModulos">
+        <addForeignKeyConstraint baseColumnNames="OWNER_ID" baseTableName="LOCATION"
+                                 constraintName="FK_LOCATION_ON_OWNER" referencedColumnNames="ID"
+                                 referencedTableName="OWNER"/>
+    </changeSet>
+    <changeSet id="48" author="TestFusionModulos">
+        <addForeignKeyConstraint baseColumnNames="UNIT_ID" baseTableName="OCCUPANCY_CERTIFICATE"
+                                 constraintName="FK_OCCUPANCYCERTIFICAT_ON_UNIT" referencedColumnNames="ID"
+                                 referencedTableName="UNIT"/>
+    </changeSet>
+    <changeSet id="49" author="TestFusionModulos">
+        <addForeignKeyConstraint baseColumnNames="BANK_ACC_DIRECTDEBIT_PMTS_ID" baseTableName="SUPPLIER"
+                                 constraintName="FK_SUPPLIER_ON_BANKACCDIRECTDE" referencedColumnNames="ID"
+                                 referencedTableName="BANK_ACCOUNT"/>
+    </changeSet>
+    <changeSet id="50" author="TestFusionModulos">
+        <addForeignKeyConstraint baseColumnNames="BANK_ACC_TELEMATIC_PAYMENTS_ID" baseTableName="SUPPLIER"
+                                 constraintName="FK_SUPPLIER_ON_BANKACCTELEMATI" referencedColumnNames="ID"
+                                 referencedTableName="BANK_ACCOUNT"/>
+    </changeSet>
+    <changeSet id="51" author="TestFusionModulos">
+        <addForeignKeyConstraint baseColumnNames="PERSON_ID" baseTableName="SUPPLIER"
+                                 constraintName="FK_SUPPLIER_ON_PERSON" referencedColumnNames="ID"
+                                 referencedTableName="PERSON"/>
+    </changeSet>
+    <changeSet id="52" author="TestFusionModulos">
+        <addForeignKeyConstraint baseColumnNames="SUPPLIER_ID" baseTableName="TASK_APPOINTMENT"
+                                 constraintName="FK_TASKAPPOINTMENT_ON_SUPPLIER" referencedColumnNames="ID"
+                                 referencedTableName="SUPPLIER"/>
+    </changeSet>
+    <changeSet id="53" author="TestFusionModulos">
+        <addForeignKeyConstraint baseColumnNames="TASK_ORDER_ID" baseTableName="TASK_APPOINTMENT"
+                                 constraintName="FK_TASKAPPOINTMEN_ON_TASKORDER" referencedColumnNames="ID"
+                                 referencedTableName="TASK_ORDER"/>
+    </changeSet>
+    <changeSet id="54" author="TestFusionModulos">
+        <addForeignKeyConstraint baseColumnNames="TASK_ORDER_ID" baseTableName="TASK_DIARY_NOTE"
+                                 constraintName="FK_TASKDIARYNOTE_ON_TASKORDER" referencedColumnNames="ID"
+                                 referencedTableName="TASK_DIARY_NOTE"/>
+    </changeSet>
+    <changeSet id="55" author="TestFusionModulos">
+        <addForeignKeyConstraint baseColumnNames="PROPOSED_BY_ID" baseTableName="TASK_ORDER"
+                                 constraintName="FK_TASK_ORDER_ON_PROPOSED_BY" referencedColumnNames="ID"
+                                 referencedTableName="PERSON"/>
+    </changeSet>
+    <changeSet id="56" author="TestFusionModulos">
+        <addForeignKeyConstraint baseColumnNames="ATTACHMENT_COLLECTION_ID" baseTableName="UNIT"
+                                 constraintName="FK_UNIT_ON_ATTACHMENTCOLLECTIO" referencedColumnNames="ID"
+                                 referencedTableName="ATTACHMENT_COLLECTION"/>
+    </changeSet>
+    <changeSet id="57" author="TestFusionModulos">
+        <addForeignKeyConstraint baseColumnNames="LOCATION_ID" baseTableName="UNIT" constraintName="FK_UNIT_ON_LOCATION"
+                                 referencedColumnNames="ID" referencedTableName="LOCATION"/>
+    </changeSet>
+    <changeSet id="58" author="TestFusionModulos">
+        <addForeignKeyConstraint baseColumnNames="OWNER_ID" baseTableName="UNIT" constraintName="FK_UNIT_ON_OWNER"
+                                 referencedColumnNames="ID" referencedTableName="OWNER"/>
+    </changeSet>
+    <changeSet id="59" author="TestFusionModulos">
+        <addForeignKeyConstraint baseColumnNames="UNIT_PLAN_ID" baseTableName="UNIT"
+                                 constraintName="FK_UNIT_ON_UNIT_PLAN" referencedColumnNames="ID"
+                                 referencedTableName="ATTACHMENT"/>
+    </changeSet>
+    <changeSet id="60" author="TestFusionModulos">
+        <dropTable cascadeConstraints="true" tableName="sys_sequence"/>
+    </changeSet>
+</databaseChangeLog>

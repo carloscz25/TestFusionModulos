@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="msg://addressEdit.caption"
+        focusComponent="form">
+    <data>
+        <instance id="addressDc"
+                  class="main.entity.central.Address">
+            <fetchPlan extends="_base"/>
+            <loader/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="windowCommitAndClose" caption="msg:///actions.Ok"
+                icon="EDITOR_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="windowClose"
+                caption="msg:///actions.Close"
+                icon="EDITOR_CANCEL"/>
+    </actions>
+    <dialogMode height="600"
+                width="800"/>
+    <layout spacing="true" expand="scrollBox">
+        <scrollBox id="scrollBox" spacing="true">
+            <form id="form" dataContainer="addressDc">
+                <column width="350px">
+                    <textField id="postalCodeField" property="postalCode"/>
+                    <textField id="completeAddressField" property="completeAddress"/>
+                    <textField id="blockField" property="block"/>
+                    <textField id="nameField" property="name"/>
+                    <textField id="wayNameField" property="wayName"/>
+                    <textField id="wayNumberField" property="wayNumber"/>
+                    <textField id="observationsField" property="observations"/>
+                    <textField id="countryField" property="country"/>
+                    <textField id="levelField" property="level"/>
+                    <textField id="regionField" property="region"/>
+                    <textField id="wayField" property="way"/>
+                    <textField id="townField" property="town"/>
+                    <textField id="provinceField" property="province"/>
+                    <textField id="doorField" property="door"/>
+                    <checkBox id="addressIsMailDestinationField" property="addressIsMailDestination"/>
+                </column>
+            </form>
+        </scrollBox>
+        <hbox id="editActions" spacing="true">
+            <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
+            <button id="closeBtn" action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

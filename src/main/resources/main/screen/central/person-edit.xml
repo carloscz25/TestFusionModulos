@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="msg://personEdit.caption"
+        >
+    <data>
+        <instance id="personDc"
+                  class="main.entity.central.Person">
+            <fetchPlan extends="_base">
+                <property name="identificationNumbers" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader/>
+            <collection id="addressesDc" property="addresses"/>
+            <collection id="bankAccountsDc" property="bankAccounts"/>
+            <collection id="identificationNumbersDc" property="identificationNumbers"/>
+            <collection id="contactInfoItemsDc" property="contactInfoItems"/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="windowCommitAndClose" caption="msg:///actions.Ok"
+                icon="EDITOR_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="windowClose"
+                caption="msg:///actions.Close"
+                icon="EDITOR_CANCEL"/>
+    </actions>
+    <dialogMode height="600"
+                width="800"/>
+    <layout spacing="true" expand="pdata">
+        <vbox id="pdata" caption="Person Data" expand="tabsheet" spacing="true">
+            <hbox caption="Id" spacing="true">
+                <comboBox caption="msg://main.screen.central/Person.idtype"
+                          optionsEnum="main.entity.central.IdentificationNumberType"/>
+                <textField id="txtIdValue" caption="Valor Id."/>
+            </hbox>
+            <vbox caption="Physical/Legal" spacing="true">
+                <comboBox dataContainer="personDc" property="personType" id="cboPersonType" caption="Person Type" optionsEnum="main.entity.central.PersonType"/>
+                <vbox id="vbxPhysical" visible="true" spacing="true">
+                    <hbox spacing="true">
+                        <textField dataContainer="personDc" property="name1" caption="Name"/>
+                        <textField dataContainer="personDc" property="surname1" caption="Surname 1"/>
+                        <textField dataContainer="personDc" property="surname2" caption="Surname 2"/>
+                    </hbox>
+                    <dateField dataContainer="personDc" property="birthDate" caption="Birth Date"/>
+                </vbox>
+                <vbox id="vbxLegal" visible="false" spacing="true">
+                    <hbox spacing="true">
+                    <textField dataContainer="personDc" property="officialCompanyName" caption="Legal Name"/>
+                    <textField dataContainer="personDc" property="publicCompanyName" caption="Public Name"/>
+                    </hbox>
+                    <textArea  width="50%" dataContainer="personDc" property="companyActivitiesDescription" caption="Activities"/>
+                    <dateField dataContainer="personDc" property="constitutionDate" caption="Constitution Date"/>
+                </vbox>
+            </vbox>
+
+            <tabSheet id="tabsheet">
+                <tab caption="Ids" spacing="true">
+                    <groupTable dataContainer="identificationNumbersDc" id="tblIds" width="100%" height="100%">
+                        <buttonsPanel>
+                            <button  action="tblIds.createIdAct"/>
+                            <button  action="tblIds.editIdAct"/>
+                            <button  action="tblIds.removeIdAct"/>
+                        </buttonsPanel>
+                        <actions>
+                            <action id="createIdAct" caption="Nueva"></action>
+                            <action id="editIdAct" caption="Editar"></action>
+                            <action id="removeIdAct" caption="Borrar"></action>
+                        </actions>
+                        <columns>
+                            <column id="identificationNumberType"/>
+                            <column id="isDefault"/>
+                            <column id="value"></column>
+
+                        </columns>
+                    </groupTable>
+                </tab>
+                <tab caption="Addresses" spacing="true">
+                    <groupTable dataContainer="addressesDc" id="tblAddresses" width="100%" height="100%">
+                        <buttonsPanel spacing="true">
+                            <button id="createBtn" action="tblAddresses.createAct"/>
+                            <button id="editBtn" action="tblAddresses.editAct"/>
+                            <button id="removeBtn" action="tblAddresses.removeAct"/>
+                        </buttonsPanel>
+                        <actions>
+                            <action id="createAct" type="create"></action>
+                            <action id="editAct" type="edit"></action>
+                            <action id="removeAct" type="remove"/>
+                        </actions>
+                        <columns>
+                            <column id="name"></column>
+                            <column id="way"></column>
+                            <column id="wayName"></column>
+                            <column id="wayNumber"></column>
+                            <column id="province"/>
+                            <column id="region"/>
+                            <column id="postalCode"/>
+                            <column id="country"></column>
+                        </columns>
+                    </groupTable>
+                </tab>
+                <tab caption="Bank Accs." spacing="true">
+                    <groupTable dataContainer="bankAccountsDc" id="tblBankAccs" width="100%" height="100%">
+                        <buttonsPanel>
+                            <button  action="tblBankAccs.createAct"/>
+                            <button  action="tblBankAccs.editAct"/>
+                            <button  action="tblBankAccs.removeAct"/>
+                        </buttonsPanel>
+                        <actions>
+                            <action id="createAct" caption="Nueva"></action>
+                            <action id="editAct" caption="Editar"></action>
+                            <action id="removeAct" caption="Borrar"></action>
+                        </actions>
+                        <columns>
+                            <column id="financialInstitutionName"></column>
+                            <column id="swiftBankCode"/>
+                            <column id="swiftCountryCode"/>
+                            <column id="swiftControlDigits"/>
+                            <column id="financialInstitucionPart"/>
+                            <column id="officePart"/>
+                            <column id="controlDigits"/>
+                            <column id="accountNumber"/>
+
+                        </columns>
+                    </groupTable>
+                </tab>
+                <tab caption="Contact Infos">
+                    <groupTable dataContainer="contactInfoItemsDc" id="tblContactInfo" width="100%" height="100%">
+                        <buttonsPanel>
+                            <button  action="tblContactInfo.createCIAct"/>
+                            <button  action="tblContactInfo.editCIAct"/>
+                            <button  action="tblContactInfo.removeCIAct"/>
+                        </buttonsPanel>
+                        <actions>
+                            <action id="createCIAct" caption="Nueva"></action>
+                            <action id="editCIAct" caption="Editar"></action>
+                            <action id="removeCIAct" caption="Borrar"></action>
+                        </actions>
+                        <columns>
+                            <column id="type"></column>
+                            <column id="data"/>
+                            <column id="dataDescription"/>
+                            <column id="mailForPasswordRecovery"/>
+                        </columns>
+                    </groupTable>
+                </tab>
+            </tabSheet>
+        </vbox>
+        <hbox id="editActions" spacing="true">
+            <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
+            <button id="closeBtn" action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

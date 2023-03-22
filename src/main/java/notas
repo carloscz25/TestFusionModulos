@@ -1,0 +1,26 @@
+Filosofia de Modularización y Acople entre Entidades
+====================================================
+
+Crear entidades y agruparlas en modulos. Las entidades no podrán tener referencias a
+entidades de otro modulo para así garantizar la independencia entre modulos
+
+Por otro lado se deberán organizar en modulos en donde las entidades no podrán tener
+relaciones con entidades de otros modulos
+
+y otros modulos en los que las entidadades solo existiran como enlace entre entidades de
+distintos modulos, uqe serán las entidades que serán las responsables del acople
+
+Ejemplo: Ciclos y Departamentos
+
+Nos puede interesar que ambas entidades habiten en modulos distintos. Asi que una la ponemos en el
+modulo Locations (Departamentos) y otra en Projects (Ciclos). Departamento no tiene relación
+con Ciclo ni Ciclo con Departamento en sus clases, ni definicion de miembros.
+
+Es solo atraves de una clase puente (****Bridge.class) que creo una entidad cuyo unico proposito
+es acoplarme ambas entidades, y es la que mantiene relaciones entre entidadeas con cualquier
+grado de agregacion.
+
+Considerar si a la hora de crear los miembros, por ejemplo de List<Ciclo> dentro de departamento
+fuera interesante hacerlo en una clase dentro del modulo de Bridges que heredara de Departamento
+y allí creara, no el miembro pero si el metodo que me facultara la conexión en la practica para
+facilitar la carga y escritura de datos desde los screens.
