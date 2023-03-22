@@ -1,5 +1,6 @@
 package main.screen.central;
 
+import io.jmix.core.DataManager;
 import io.jmix.ui.ScreenBuilders;
 import io.jmix.ui.action.Action;
 import io.jmix.ui.component.ComboBox;
@@ -37,12 +38,15 @@ public class PersonEdit extends StandardEditor<Person> {
     private GroupTable<BankAccount> tblBankAccs;
     @Autowired
     private GroupTable<IdentificationNumber> tblIds;
+    @Autowired
+    private DataManager dataManager;
 
     @Subscribe
     public void onAfterShow(AfterShowEvent event) {
-        int y = 2;
-        UUID uuid = this.personDc.getItem().getId();
-        y = 2;
+        if (personDc.getItem().getAttachmentCollection()==null){
+            personDc.getItem().setAttachmentCollection(dataManager.create(AttachmentCollection.class));
+            personDc.getItem().getAttachmentCollection().setName("Collection 1");
+        }
     }
 
 

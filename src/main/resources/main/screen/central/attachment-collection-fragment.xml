@@ -1,13 +1,37 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <fragment xmlns="http://jmix.io/schema/ui/fragment">
     <data>
-        <instance id="attachmentCollectionDc"
+        <instance id="attachmentCollectionDc" provided="true" class="main.entity.central.AttachmentCollection"/>
+        <collection id="attachmentCollectionsDc"
                   class="main.entity.central.AttachmentCollection"
                   fetchPlan="_base">
             <loader/>
-        </instance>
+        </collection>
+        <collection id="attachmentsDc" class="main.entity.central.Attachment"
+                    fetchPlan="_base">
+            <loader id="attachmentsDl"/>
+        </collection>
     </data>
-    <layout>
+    <layout expand="main">
+        <hbox width="100%">
+            <buttonsPanel>
+                <button id="btnNewCollection" caption="New Collection"/>
+                <button id="btnRenameColleccion" caption="Rename Collection"/>
+                <button id="btnLoadFile" caption="Load Files"/>
+            </buttonsPanel>
+        </hbox>
+        <hbox id="main" width="100%" spacing="true">
+            <tree id="treeAttachmentCollections" dataContainer="attachmentCollectionsDc" captionProperty="name"
+                hierarchyProperty="attachmentCollectionParent" width="100%" height="100%">
+
+            </tree>
+            <groupTable id="attachmentsTable" dataContainer="attachmentsDc" width="100%" height="100%">
+                <columns>
+                    <column id="name"></column>
+                    <column id="size"/>
+                </columns>
+            </groupTable>
+        </hbox>
     </layout>
 </fragment>
 

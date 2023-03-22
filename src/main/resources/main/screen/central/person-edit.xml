@@ -13,6 +13,7 @@
             <collection id="bankAccountsDc" property="bankAccounts"/>
             <collection id="identificationNumbersDc" property="identificationNumbers"/>
             <collection id="contactInfoItemsDc" property="contactInfoItems"/>
+            <instance id="attachmentCollectionDc" property="attachmentCollection"/>
         </instance>
     </data>
     <facets>
@@ -146,6 +147,10 @@
                             <column id="mailForPasswordRecovery"/>
                         </columns>
                     </groupTable>
+                </tab>
+                <tab caption="Attachments">
+                    <fragment screen="AttachmentCollectionFragment" width="100%"
+                              height="100%" />
                 </tab>
             </tabSheet>
         </vbox>

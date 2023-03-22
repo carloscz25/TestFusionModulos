@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="TestFusionModulos">
+        <addColumn tableName="ATTACHMENT">
+            <column name="ATTACHMENT_COLLECTION_ID" type="UUID"/>
+            <column name="EXTENSION" type="VARCHAR(10)"/>
+            <column name="FILE_NAME" type="VARCHAR(255)"/>
+            <column name="NAME" type="VARCHAR(255)"/>
+            <column name="SERIAL" type="BLOB"/>
+            <column name="SIZE_" type="INT"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="2" author="TestFusionModulos">
+        <addColumn tableName="ATTACHMENT_COLLECTION">
+            <column name="ATTACHM_COLLECTION_PARENT_ID" type="UUID"/>
+            <column name="NAME" type="VARCHAR(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="3" author="TestFusionModulos">
+        <addForeignKeyConstraint baseColumnNames="ATTACHM_COLLECTION_PARENT_ID" baseTableName="ATTACHMENT_COLLECTION"
+                                 constraintName="FK_ATTACHMENTC_ON_ATTACHMCOLL" referencedColumnNames="ID"
+                                 referencedTableName="ATTACHMENT_COLLECTION"/>
+    </changeSet>
+    <changeSet id="4" author="TestFusionModulos">
+        <addForeignKeyConstraint baseColumnNames="ATTACHMENT_COLLECTION_ID" baseTableName="ATTACHMENT"
+                                 constraintName="FK_ATTACHMENT_ON_ATTACHMENTCOL" referencedColumnNames="ID"
+                                 referencedTableName="ATTACHMENT_COLLECTION"/>
+    </changeSet>
+</databaseChangeLog>

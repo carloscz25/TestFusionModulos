@@ -1,6 +1,7 @@
 package main.entity.central;
 
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
+import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 
 import javax.persistence.*;
@@ -16,6 +17,10 @@ public class AttachmentCollection {
     @Id
     private UUID id;
 
+    @InstanceName
+    @Column(name = "NAME")
+    private String name;
+
     @JoinColumn(name = "ATTACHM_COLLECTION_PARENT_ID")
     @ManyToOne(fetch = FetchType.LAZY)
     private AttachmentCollection attachmentCollectionParent;
@@ -25,6 +30,14 @@ public class AttachmentCollection {
 
     @OneToMany(mappedBy = "attachmentCollection")
     private List<Attachment> attachments;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public List<Attachment> getAttachments() {
         return attachments;
