@@ -1,18 +1,23 @@
 package main.screen.central;
 
 import io.jmix.core.DataManager;
+import io.jmix.core.LoadContext;
 import io.jmix.ui.ScreenBuilders;
 import io.jmix.ui.action.Action;
 import io.jmix.ui.component.ComboBox;
 import io.jmix.ui.component.GroupTable;
 import io.jmix.ui.component.HasValue;
 import io.jmix.ui.component.VBoxLayout;
+import io.jmix.ui.model.CollectionLoader;
 import io.jmix.ui.model.DataContext;
 import io.jmix.ui.model.InstanceContainer;
 import io.jmix.ui.screen.*;
 import main.entity.central.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.UUID;
 
 @UiController("Person.edit")
@@ -40,12 +45,33 @@ public class PersonEdit extends StandardEditor<Person> {
     private GroupTable<IdentificationNumber> tblIds;
     @Autowired
     private DataManager dataManager;
+    @Autowired
+    private GroupTable<LegalRepresentation> tblLLRR;
+    @Autowired
+    private CollectionLoader<LegalRepresentation> legalRepresentationsDl;
+
+    @Subscribe
+    public void onBeforeCommitChanges(BeforeCommitChangesEvent event) {
+        Person p = personDc.getItem();
+
+            if (p.getPersonType() == PersonType.PHYSICAL) {
+                p.setCompleteName(p.getName1().trim() + " " + p.getSurname1().trim() + " " + p.getSurname2().trim());
+            } else {
+                p.setCompleteName(p.getOfficialCompanyName().trim());
+            }
+
+    }
+
+
+
 
     @Subscribe
     public void onAfterShow(AfterShowEvent event) {
         if (personDc.getItem().getAttachmentCollection()==null){
-            personDc.getItem().setAttachmentCollection(dataManager.create(AttachmentCollection.class));
+            personDc.getItem().setAttachmentCollection(dataContext.create(AttachmentCollection.class));
             personDc.getItem().getAttachmentCollection().setName("Collection 1");
+
+
         }
     }
 
@@ -71,7 +97,7 @@ public class PersonEdit extends StandardEditor<Person> {
     public void onTblAddressesCreateAct(Action.ActionPerformedEvent event) {
         screenBuilders.editor(Address.class, this)
                 .newEntity()
-                .withOpenMode(OpenMode.NEW_WINDOW)
+                .withOpenMode(OpenMode.DIALOG)
                 .withParentDataContext(dataContext)
                 .withListComponent(tblAddresses)
                 .build().show();
@@ -81,7 +107,7 @@ public class PersonEdit extends StandardEditor<Person> {
     public void onTblAddressesEditAct(Action.ActionPerformedEvent event) {
         screenBuilders.editor(Address.class, this)
                 .editEntity(tblAddresses.getSingleSelected())
-                .withOpenMode(OpenMode.NEW_WINDOW)
+                .withOpenMode(OpenMode.DIALOG)
                 .withListComponent(tblAddresses)
                 .withParentDataContext(dataContext)
                 .build().show();
@@ -100,7 +126,7 @@ public class PersonEdit extends StandardEditor<Person> {
     @Subscribe("tblBankAccs.createAct")
     public void onTblBankAccsCreateAct(Action.ActionPerformedEvent event) {
         screenBuilders.editor(BankAccount.class, this).newEntity()
-                .withOpenMode(OpenMode.NEW_WINDOW)
+                .withOpenMode(OpenMode.DIALOG)
                 .withListComponent(tblBankAccs)
                 .withParentDataContext(dataContext)
                 .build().show();
@@ -109,7 +135,7 @@ public class PersonEdit extends StandardEditor<Person> {
     @Subscribe("tblBankAccs.editAct")
     public void onTblBankAccsEditAct(Action.ActionPerformedEvent event) {
         screenBuilders.editor(BankAccount.class, this).editEntity(tblBankAccs.getSingleSelected())
-                .withOpenMode(OpenMode.NEW_WINDOW)
+                .withOpenMode(OpenMode.DIALOG)
                 .withListComponent(tblBankAccs)
                 .withParentDataContext(dataContext)
                 .build().show();
@@ -118,7 +144,7 @@ public class PersonEdit extends StandardEditor<Person> {
     @Subscribe("tblIds.createIdAct")
     public void onTblIdsCreateAct(Action.ActionPerformedEvent event) {
         screenBuilders.editor(IdentificationNumber.class, this).newEntity()
-                .withOpenMode(OpenMode.NEW_WINDOW)
+                .withOpenMode(OpenMode.DIALOG)
                 .withListComponent(tblIds)
                 .withParentDataContext(dataContext)
                 .build().show();
@@ -127,7 +153,7 @@ public class PersonEdit extends StandardEditor<Person> {
     @Subscribe("tblIds.editIdAct")
     public void onTblIdsEditAct(Action.ActionPerformedEvent event) {
         screenBuilders.editor(IdentificationNumber.class, this).editEntity(tblIds.getSingleSelected())
-                .withOpenMode(OpenMode.NEW_WINDOW)
+                .withOpenMode(OpenMode.DIALOG)
                 .withListComponent(tblIds)
                 .withParentDataContext(dataContext)
                 .build().show();
@@ -146,7 +172,7 @@ public class PersonEdit extends StandardEditor<Person> {
     @Subscribe("tblContactInfo.createCIAct")
     public void onTblContactInfoCreateCIAct(Action.ActionPerformedEvent event) {
         screenBuilders.editor(ContactInfoItem.class, this).newEntity()
-                .withOpenMode(OpenMode.NEW_WINDOW)
+                .withOpenMode(OpenMode.DIALOG)
                 .withListComponent(tblContactInfo)
                 .withParentDataContext(dataContext)
                 .build().show();
@@ -155,7 +181,7 @@ public class PersonEdit extends StandardEditor<Person> {
     @Subscribe("tblContactInfo.editCIAct")
     public void onTblContactInfoEditCIAct(Action.ActionPerformedEvent event) {
         screenBuilders.editor(ContactInfoItem.class, this).editEntity(tblContactInfo.getSingleSelected())
-                .withOpenMode(OpenMode.NEW_WINDOW)
+                .withOpenMode(OpenMode.DIALOG)
                 .withListComponent(tblContactInfo)
                 .withParentDataContext(dataContext)
                 .build().show();
@@ -165,6 +191,43 @@ public class PersonEdit extends StandardEditor<Person> {
     private boolean tblContactInfoEditCIActEnabledRule() {
         return tblContactInfo.getSingleSelected()!=null;
     }
+
+    @Subscribe("tblLLRR.createLRAct")
+    public void onTblLLRRCreateLRAct(Action.ActionPerformedEvent event) {
+        screenBuilders.editor(LegalRepresentation.class, this).newEntity()
+                .withOpenMode(OpenMode.DIALOG)
+                .withListComponent(tblLLRR)
+                .withParentDataContext(dataContext)
+                .build().show();
+    }
+
+    @Install(to = "tblLLRR.editLRAct", subject = "enabledRule")
+    private boolean tblLLRREditLRActEnabledRule() {
+        return tblLLRR.getSingleSelected()!=null;
+    }
+
+    @Subscribe("tblLLRR.editLRAct")
+    public void onTblLLRREditLRAct(Action.ActionPerformedEvent event) {
+        screenBuilders.editor(LegalRepresentation.class, this).editEntity(tblLLRR.getSingleSelected())
+                .withOpenMode(OpenMode.DIALOG)
+                .withListComponent(tblLLRR)
+                .withParentDataContext(dataContext)
+                .build().show();
+    }
+
+    @Install(to = "legalRepresentationsDl", target = Target.DATA_LOADER)
+    private List<LegalRepresentation> legalRepresentationsDlLoadDelegate(LoadContext<LegalRepresentation> loadContext) {
+        Person p = this.getEditedEntity();
+        List<LegalRepresentation> llrr = dataManager.load(LegalRepresentation.class)
+                .query("select lr from LegalRepresentation lr where lr.representer.id = :pid " +
+                        "or lr.representee.id = :pid").parameter("pid", p.getId())
+                .list();
+        return llrr;
+    }
+
+
+
+
 
 
 

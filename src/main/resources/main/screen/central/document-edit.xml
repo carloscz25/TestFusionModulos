@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="msg://documentEdit.caption"
+        focusComponent="form">
+    <data>
+        <instance id="documentDc"
+                  class="main.entity.central.Document">
+            <fetchPlan extends="_base">
+                <property name="supplier" fetchPlan="_base"/>
+                <property name="additionalConcepts" fetchPlan="_base"/>
+                <property name="allocations" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader/>
+            <collection id="additionalConceptsDc" property="additionalConcepts" />
+            <instance id="attachmentCollectionDc" property="attachmentCollection"/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="windowCommitAndClose" caption="msg:///actions.Ok"
+                icon="EDITOR_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="windowClose"
+                caption="msg:///actions.Close"
+                icon="EDITOR_CANCEL"/>
+    </actions>
+    <dialogMode height="600"
+                width="800"/>
+    <layout spacing="true" expand="main">
+        <scrollBox id="main">
+            <split id="submain" width="100%" height="100%" orientation="horizontal">
+
+                <vbox spacing="true">
+
+                        <comboBox dataContainer="documentDc" id="typeField" property="type"/>
+                        <entityPicker dataContainer="documentDc" id="supplierField" property="supplier" captionProperty="person.completeName">
+                            <actions>
+                                <action id="entityLookup" type="entity_lookup"/>
+                                <action id="entityClear" type="entity_clear"/>
+                            </actions>
+                        </entityPicker>
+                        <textField dataContainer="documentDc" id="documentNumberField" property="documentNumber"/>
+                        <dateField dataContainer="documentDc" id="issueDateField" property="issueDate"/>
+                        <textArea dataContainer="documentDc" id="descriptionField" property="description" rows="5"/>
+                        <textField dataContainer="documentDc" id="totalBaseField" property="totalBase"/>
+                        <groupTable dataContainer="additionalConceptsDc" id="tblAdditionalConcepts" width="100%" height="250px">
+                            <actions>
+                                <action id="createAC" type="create"></action>
+                                <action id="editAC" type="edit"></action>
+                                <action id="removeAC" type="remove"></action>
+                            </actions>
+                            <buttonsPanel>
+                                <button id="btnCreateAC" action="tblAdditionalConcepts.createAC"/>
+                                <button id="btnEditAC" action="tblAdditionalConcepts.editAC"/>
+                                <button id="btnRemoveAC" action="tblAdditionalConcepts.removeAC"/>
+                            </buttonsPanel>
+                            <columns>
+                                <column id="additionalConceptType" caption="Type"></column>
+                                <column id="base"></column>
+                                <column id="percentage" caption="%"></column>
+                                <column id="quote"></column>
+                            </columns>
+                        </groupTable>
+                        <textField dataContainer="documentDc" id="totalAfterAdditionalConceptsField" property="totalAfterAdditionalConcepts"/>
+                        <checkBox dataContainer="documentDc" id="ommitDocumentAtPaymentControlField" property="ommitDocumentAtPaymentControl"/>
+                </vbox>
+
+
+
+
+                <!-- browser element part to display the document scan on the right hand side -->
+                <browserFrame width="100%" height="500px" id="browserPreview">
+
+                </browserFrame>
+            </split>
+            <fragment id="attachmentCollectionFragment" height="400px" screen="AttachmentCollectionFragment"/>
+        </scrollBox>
+
+        <hbox id="editActions" spacing="true">
+            <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
+            <button id="closeBtn" action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

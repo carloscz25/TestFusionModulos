@@ -5,6 +5,7 @@ import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,14 +20,14 @@ public class AttachmentCollection {
 
     @InstanceName
     @Column(name = "NAME")
-    private String name;
+    private String name = "";
 
     @JoinColumn(name = "ATTACHM_COLLECTION_PARENT_ID")
     @ManyToOne(fetch = FetchType.LAZY)
     private AttachmentCollection attachmentCollectionParent;
 
     @OneToMany(mappedBy = "attachmentCollectionParent")
-    private List<AttachmentCollection> attachmentCollections;
+    private List<AttachmentCollection> attachmentCollections = new ArrayList<AttachmentCollection>();
 
     @OneToMany(mappedBy = "attachmentCollection")
     private List<Attachment> attachments;

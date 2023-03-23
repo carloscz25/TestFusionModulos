@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        xmlns:c="http://jmix.io/schema/ui/jpql-condition"
+        caption="msg://supplierBrowse.caption"
+        focusComponent="suppliersTable">
+    <data readOnly="true">
+        <collection id="suppliersDc"
+                    class="main.entity.central.Supplier">
+            <fetchPlan extends="_base"/>
+            <loader id="suppliersDl">
+                <query>
+                    <![CDATA[select e from Supplier e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="lookupSelectAction"
+                caption="msg:///actions.Select"
+                icon="LOOKUP_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="lookupCancelAction"
+                caption="msg:///actions.Cancel"
+                icon="LOOKUP_CANCEL"/>
+    </actions>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="suppliersTable" spacing="true">
+        <filter id="filter"
+                dataLoader="suppliersDl">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="suppliersTable"
+                    width="100%"
+                    dataContainer="suppliersDc">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="person.completeName"/>
+                <column id="commercialName"/>
+                <column id="activityDescription"/>
+                <column id="observations"/>
+
+                <column id="supportsTelematicPayment"/>
+                <column id="supportsDirectDebit"/>
+                <column id="sendEmailAtInvoiceApproval"/>
+                <column id="sendEmailAtInvoicePayment"/>
+            </columns>
+            <simplePagination/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="suppliersTable.create"/>
+                <button id="editBtn" action="suppliersTable.edit"/>
+                <button id="removeBtn" action="suppliersTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

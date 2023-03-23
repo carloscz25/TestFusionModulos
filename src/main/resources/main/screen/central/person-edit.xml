@@ -14,7 +14,11 @@
             <collection id="identificationNumbersDc" property="identificationNumbers"/>
             <collection id="contactInfoItemsDc" property="contactInfoItems"/>
             <instance id="attachmentCollectionDc" property="attachmentCollection"/>
+
         </instance>
+        <collection id="legalRepresentationsDc" class="main.entity.central.LegalRepresentation">
+            <loader id="legalRepresentationsDl"/>
+        </collection>
     </data>
     <facets>
         <dataLoadCoordinator auto="true"/>
@@ -56,10 +60,12 @@
                     <textArea  width="50%" dataContainer="personDc" property="companyActivitiesDescription" caption="Activities"/>
                     <dateField dataContainer="personDc" property="constitutionDate" caption="Constitution Date"/>
                 </vbox>
+
+                <textField caption="Complete Name" dataContainer="personDc" property="completeName" enable="false"/>
             </vbox>
 
             <tabSheet id="tabsheet">
-                <tab caption="Ids" spacing="true">
+                <tab id="tabIds" caption="Ids" spacing="true">
                     <groupTable dataContainer="identificationNumbersDc" id="tblIds" width="100%" height="100%">
                         <buttonsPanel>
                             <button  action="tblIds.createIdAct"/>
@@ -79,7 +85,7 @@
                         </columns>
                     </groupTable>
                 </tab>
-                <tab caption="Addresses" spacing="true">
+                <tab id="tabAddresses" caption="Addresses" spacing="true">
                     <groupTable dataContainer="addressesDc" id="tblAddresses" width="100%" height="100%">
                         <buttonsPanel spacing="true">
                             <button id="createBtn" action="tblAddresses.createAct"/>
@@ -103,7 +109,7 @@
                         </columns>
                     </groupTable>
                 </tab>
-                <tab caption="Bank Accs." spacing="true">
+                <tab id="tabBankAccs" caption="Bank Accs." spacing="true">
                     <groupTable dataContainer="bankAccountsDc" id="tblBankAccs" width="100%" height="100%">
                         <buttonsPanel>
                             <button  action="tblBankAccs.createAct"/>
@@ -128,7 +134,7 @@
                         </columns>
                     </groupTable>
                 </tab>
-                <tab caption="Contact Infos">
+                <tab id="tabContactInfos" caption="Contact Infos">
                     <groupTable dataContainer="contactInfoItemsDc" id="tblContactInfo" width="100%" height="100%">
                         <buttonsPanel>
                             <button  action="tblContactInfo.createCIAct"/>
@@ -148,9 +154,28 @@
                         </columns>
                     </groupTable>
                 </tab>
-                <tab caption="Attachments">
+                <tab id="tabAttachments" caption="Attachments">
                     <fragment screen="AttachmentCollectionFragment" width="100%"
                               height="100%" />
+                </tab>
+                <tab id="tabLegalRepresentations" caption="Legal Repr.">
+                    <groupTable id="tblLLRR" dataContainer="legalRepresentationsDc" width="100%" height="100%">
+                        <buttonsPanel>
+                            <button  action="tblLLRR.createLRAct"/>
+                            <button  action="tblLLRR.editLRAct"/>
+                            <button  action="tblLLRR.removeLRAct"/>
+                        </buttonsPanel>
+                        <actions>
+                            <action id="createLRAct" caption="Nueva"></action>
+                            <action id="editLRAct" caption="Editar"></action>
+                            <action id="removeLRAct" type="remove" caption="Borrar"></action>
+                        </actions>
+                        <columns>
+                            <column id="representer.completeName"></column>
+                            <column id="representee.completeName"></column>
+                            <column id="legalRepresentationType"></column>
+                        </columns>
+                    </groupTable>
                 </tab>
             </tabSheet>
         </vbox>

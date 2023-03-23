@@ -17,7 +17,8 @@
             <buttonsPanel>
                 <button id="btnNewCollection" caption="New Collection"/>
                 <button id="btnRenameColleccion" caption="Rename Collection"/>
-                <button id="btnLoadFile" caption="Load Files"/>
+                <fileMultiUpload id="multiUploadFieldAttachmentCollections" caption="Load Files"/>
+                <button id="btnDownload" caption="Download"/>
             </buttonsPanel>
         </hbox>
         <hbox id="main" width="100%" spacing="true">
