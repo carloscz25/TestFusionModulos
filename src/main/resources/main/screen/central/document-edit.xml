@@ -34,7 +34,7 @@
         <scrollBox id="main">
             <split id="submain" width="100%" height="100%" orientation="horizontal">
 
-                <vbox spacing="true">
+                <vbox spacing="true" visible="">
 
                         <comboBox dataContainer="documentDc" id="typeField" property="type"/>
                         <entityPicker dataContainer="documentDc" id="supplierField" property="supplier" captionProperty="person.completeName">
@@ -67,6 +67,10 @@
                         </groupTable>
                         <textField dataContainer="documentDc" id="totalAfterAdditionalConceptsField" property="totalAfterAdditionalConcepts"/>
                         <checkBox dataContainer="documentDc" id="ommitDocumentAtPaymentControlField" property="ommitDocumentAtPaymentControl"/>
+                        <!-- part allocations : check if module projects is activated -->
+                        <vbox id="vbxBridgedAllocations">
+                            <!-- controller in charge of adding the allocations fragment -->
+                        </vbox>
                 </vbox>
 
 

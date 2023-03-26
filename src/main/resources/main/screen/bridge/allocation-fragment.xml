@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<fragment xmlns="http://jmix.io/schema/ui/fragment">
+    <data>
+        <collection id="allocationsDc"
+                  class="main.entity.bridge.Allocation"
+                  fetchPlan="_base">
+            <loader id="allocationsDl"/>
+        </collection>
+    </data>
+    <layout>
+        <table id="tableAllocations" dataContainer="allocationsDc" width="100%" height="100%">
+            <actions>
+                <action id="createAllocation" type="create"></action>
+                <action id="editAllocation" type="edit"></action>
+                <action id="removeAllocation" type="remove"/>
+            </actions>
+            <buttonsPanel>
+                <button id="createBtn" action="tableAllocations.createAllocation"/>
+                <button id="editBtn" action="tableAllocations.editAllocation"/>
+                <button id="removeBtn" action="tableAllocations.removeAllocation"/>
+            </buttonsPanel>
+            <columns>
+                <column id="unitName" ></column>
+                <column id="allocationPercent"/>
+                <column id="allocationAmount"/>
+            </columns>
+        </table>
+    </layout>
+</fragment>
+

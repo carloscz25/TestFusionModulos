@@ -25,6 +25,10 @@ public class CycleUnitBridge {
     @OneToOne(fetch = FetchType.LAZY)
     private Unit unit;
 
+
+
+
+
     public Unit getUnit() {
         return unit;
     }
@@ -48,4 +52,9 @@ public class CycleUnitBridge {
     public void setId(UUID id) {
         this.id = id;
     }
+
+
+
+
+
 }

@@ -1,19 +1,20 @@
 package main.screen.central;
 
 
+import io.jmix.ui.Fragments;
 import io.jmix.ui.ScreenBuilders;
 import io.jmix.ui.action.Action;
-import io.jmix.ui.component.BrowserFrame;
-import io.jmix.ui.component.Fragment;
-import io.jmix.ui.component.GroupTable;
-import io.jmix.ui.component.StreamResource;
+import io.jmix.ui.component.*;
 import io.jmix.ui.model.DataContext;
 import io.jmix.ui.model.InstanceContainer;
 import io.jmix.ui.screen.*;
+import main.entity.bridge.Bridges;
+import main.entity.bridge.Modules;
 import main.entity.central.AdditionalConceptRecord;
 import main.entity.central.Attachment;
 import main.entity.central.AttachmentCollection;
 import main.entity.central.Document;
+import main.screen.bridge.AllocationFragment;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.ByteArrayInputStream;
@@ -36,6 +37,23 @@ public class DocumentEdit extends StandardEditor<Document> {
     private Fragment attachmentCollectionFragment;
     @Autowired
     private BrowserFrame browserPreview;
+    @Autowired
+    private Bridges bridges;
+    @Autowired
+    private VBoxLayout vbxBridgedAllocations;
+    @Autowired
+    private Fragments fragments;
+
+    @Subscribe
+    public void onAfterInit(AfterInitEvent event) {
+        if (bridges.isModuleActive(Modules.PROJECTS)){
+            AllocationFragment af = fragments.create(this, AllocationFragment.class);
+            vbxBridgedAllocations.add(af.getFragment());
+        }
+    }
+
+
+
 
     @Subscribe
     public void onAfterShow(AfterShowEvent event) {
@@ -53,6 +71,8 @@ public class DocumentEdit extends StandardEditor<Document> {
                     .setStreamSupplier(() -> new ByteArrayInputStream(att.getSerial()))
                     .setMimeType("application/pdf");
         });
+
+
 
     }
 
