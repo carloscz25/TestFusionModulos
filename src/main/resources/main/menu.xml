@@ -8,6 +8,8 @@
         <item screen="Supplier.browse" caption="msg://main.screen.central/supplierBrowse.menu"/>
         <item screen="Document.browse" caption="msg://main.screen.central/documentBrowse.menu"/>
         <item screen="Location.browse" caption="msg://main.screen.locations/locationBrowse.menu"/>
+        <item screen="Unit.browse" caption="msg://main.screen.locations/unitBrowse.menu"/>
+        <item screen="CoefficientType.browse" caption="msg://main.screen.locations/coefficientTypeBrowse.menu"/>
     </menu>
 
 </menu-config>

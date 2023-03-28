@@ -1,6 +1,7 @@
 package main;
 
 import com.google.common.base.Strings;
+import io.jmix.core.annotation.MessageSourceBasenames;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -16,6 +17,7 @@ import org.springframework.core.env.Environment;
 import javax.sql.DataSource;
 
 @SpringBootApplication
+@MessageSourceBasenames({"main/screen/locations/messages","main/screen/central/messages"})
 public class TestfusionmodulosApplication {
 
     @Autowired

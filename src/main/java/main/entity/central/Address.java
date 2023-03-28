@@ -66,6 +66,17 @@ public class Address {
     @Column(name = "ADDRESS_IS_MAIL_DESTINATION")
     private Boolean addressIsMailDestination;
 
+    @Column(name = "DISTRICT")
+    private String district;
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
+    }
+
     public Boolean getAddressIsMailDestination() {
         return addressIsMailDestination;
     }

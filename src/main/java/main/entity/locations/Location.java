@@ -1,11 +1,11 @@
 package main.entity.locations;
 
-import main.entity.central.Address;
-import main.entity.central.Attachment;
-import main.entity.central.AttachmentCollection;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
+import main.entity.central.Address;
+import main.entity.central.Attachment;
+import main.entity.central.AttachmentCollection;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -49,9 +49,6 @@ public class Location {
     @ManyToOne(fetch = FetchType.LAZY)
     private Owner owner;
 
-    @OneToMany(mappedBy = "location")
-    private List<Unit> units;
-
     @JoinColumn(name = "ATTACHMENT_COLLECTION_ID")
     @OneToOne(fetch = FetchType.LAZY)
     private AttachmentCollection attachmentCollection;
@@ -63,26 +60,26 @@ public class Location {
     @OneToOne(fetch = FetchType.LAZY)
     private Attachment facadePicture;
 
-    @Column(name = "DISTRICT")
-    private String district;
+    @OneToMany(mappedBy = "location")
+    private List<Coefficient> coefficients;
 
     @OneToMany(mappedBy = "location")
-    private List<LocationCoefficient> coefficients;
+    private List<Unit> units;
 
-    public List<LocationCoefficient> getCoefficients() {
+    public List<Unit> getUnits() {
+        return units;
+    }
+
+    public void setUnits(List<Unit> units) {
+        this.units = units;
+    }
+
+    public List<Coefficient> getCoefficients() {
         return coefficients;
     }
 
-    public void setCoefficients(List<LocationCoefficient> coefficients) {
+    public void setCoefficients(List<Coefficient> coefficients) {
         this.coefficients = coefficients;
-    }
-
-    public String getDistrict() {
-        return district;
-    }
-
-    public void setDistrict(String district) {
-        this.district = district;
     }
 
     public Attachment getFacadePicture() {
@@ -107,14 +104,6 @@ public class Location {
 
     public void setAttachmentCollection(AttachmentCollection attachmentCollection) {
         this.attachmentCollection = attachmentCollection;
-    }
-
-    public List<Unit> getUnits() {
-        return units;
-    }
-
-    public void setUnits(List<Unit> units) {
-        this.units = units;
     }
 
     public Owner getOwner() {

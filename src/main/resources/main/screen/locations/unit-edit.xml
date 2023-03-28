@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="msg://unitEdit.caption"
+        focusComponent="form">
+    <data>
+        <instance id="unitDc"
+                  class="main.entity.locations.Unit">
+            <fetchPlan extends="_base">
+                <property name="location" fetchPlan="_base"/>
+                <property name="occupancyCertificates" fetchPlan="_base"/>
+                <property name="energyCertificates" fetchPlan="_base"/>
+                <property name="attachmentCollection" fetchPlan="_base">
+                    <property name="attachments" fetchPlan="_base"/>
+                </property>
+                <property name="owner" fetchPlan="_base"/>
+                <property name="unitPlan" fetchPlan="_base"/>
+                <property name="fullDescriptiveName"/>
+            </fetchPlan>
+            <loader/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="windowCommitAndClose" caption="msg:///actions.Ok"
+                icon="EDITOR_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="windowClose"
+                caption="msg:///actions.Close"
+                icon="EDITOR_CANCEL"/>
+    </actions>
+    <dialogMode height="600"
+                width="800"/>
+    <layout spacing="true" expand="scrollBox">
+        <scrollBox id="scrollBox" spacing="true">
+            <form id="form" dataContainer="unitDc">
+                <column width="350px">
+                    <entityPicker id="locationField" property="location">
+                        <actions>
+                            <action id="entityLookup" type="entity_lookup"/>
+                            <action id="entityClear" type="entity_clear"/>
+                        </actions>
+                    </entityPicker>
+                    <textField id="levelField" property="level"/>
+                    <textField id="doorField" property="door"/>
+                    <comboBox id="typeField" property="type"/>
+                    <textField id="areaField" property="area"/>
+                    <textField id="abbreviationLevelDoorField" property="abbreviationLevelDoor"/>
+                    <textField id="landRegistryInformationField" property="landRegistryInformation"/>
+                    <textField id="observationsField" property="observations"/>
+                    <entityPicker id="attachmentCollectionField" property="attachmentCollection">
+                        <actions>
+                            <action id="entityLookup" type="entity_lookup"/>
+                            <action id="entityClear" type="entity_clear"/>
+                        </actions>
+                    </entityPicker>
+                    <entityPicker id="ownerField" property="owner">
+                        <actions>
+                            <action id="entityLookup" type="entity_lookup"/>
+                            <action id="entityClear" type="entity_clear"/>
+                        </actions>
+                    </entityPicker>
+                    <entityPicker id="unitPlanField" property="unitPlan">
+                        <actions>
+                            <action id="entityLookup" type="entity_lookup"/>
+                            <action id="entityClear" type="entity_clear"/>
+                        </actions>
+                    </entityPicker>
+                    <checkBox id="excludeFromEmptyUnitSearchField" property="excludeFromEmptyUnitSearch"/>
+                    <textField id="fullDescriptiveNameField" property="fullDescriptiveName"/>
+                </column>
+            </form>
+        </scrollBox>
+        <hbox id="editActions" spacing="true">
+            <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
+            <button id="closeBtn" action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

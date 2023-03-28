@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://jmix.io/schema/ui/window"
-        caption="msg://identificationNumberEdit.caption"
+        caption="msg:///identificationNumberEdit"
         focusComponent="form">
     <data>
         <instance id="identificationNumberDc"
@@ -24,7 +24,8 @@
     </actions>
     <dialogMode height="600"
                 width="800"/>
-    <layout spacing="true" expand="editActions">
+    <layout spacing="true" expand="main">
+        <vbox id="main">
         <form id="form" dataContainer="identificationNumberDc">
             <column width="350px">
                 <textField id="valueField" property="value"/>
@@ -33,6 +34,7 @@
                 <checkBox id="isDefaultField" property="isDefault"/>
             </column>
         </form>
+        </vbox>
         <hbox id="editActions" spacing="true">
             <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
             <button id="closeBtn" action="windowClose"/>

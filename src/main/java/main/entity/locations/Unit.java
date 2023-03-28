@@ -1,11 +1,11 @@
 package main.entity.locations;
 
-import main.entity.central.Attachment;
-import main.entity.central.AttachmentCollection;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 import io.jmix.core.metamodel.annotation.JmixProperty;
 import io.jmix.core.metamodel.annotation.NumberFormat;
+import main.entity.central.Attachment;
+import main.entity.central.AttachmentCollection;
 
 import javax.persistence.*;
 import java.util.List;
@@ -19,10 +19,6 @@ public class Unit {
     @Column(name = "ID", nullable = false)
     @Id
     private UUID id;
-
-    @JoinColumn(name = "LOCATION_ID")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Location location;
 
     @Column(name = "LEVEL_", length = 10)
     private String level;
@@ -67,18 +63,29 @@ public class Unit {
     @Column(name = "EXCLUDE_FROM_EMPTY_UNIT_SEARCH")
     private Boolean excludeFromEmptyUnitSearch;
 
+    @OneToMany(mappedBy = "unit")
+    private List<Coefficient> coefficients;
+
     @JmixProperty
     @Transient
     private String fullDescriptiveName;
+    @JoinColumn(name = "LOCATION_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Location location;
 
-    @OneToMany(mappedBy = "unit")
-    private List<LocationCoefficient> coefficients;
+    public Location getLocation() {
+        return location;
+    }
 
-    public List<LocationCoefficient> getCoefficients() {
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public List<Coefficient> getCoefficients() {
         return coefficients;
     }
 
-    public void setCoefficients(List<LocationCoefficient> coefficients) {
+    public void setCoefficients(List<Coefficient> coefficients) {
         this.coefficients = coefficients;
     }
 
@@ -188,14 +195,6 @@ public class Unit {
 
     public void setLevel(String level) {
         this.level = level;
-    }
-
-    public Location getLocation() {
-        return location;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
     }
 
     public UUID getId() {

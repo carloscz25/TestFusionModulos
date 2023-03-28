@@ -9,17 +9,42 @@ import java.util.UUID;
 @JmixEntity
 @Table(name = "LOCATION_COEFFICIENT")
 @Entity
-public class LocationCoefficient {
+public class Coefficient {
     @JmixGeneratedValue
     @Column(name = "ID", nullable = false)
     @Id
     private UUID id;
+
+    @Column(name = "VALUE_")
+    private Double value;
+
+    @JoinColumn(name = "COEFFICIENT_TYPE_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private CoefficientType coefficientType;
+
     @JoinColumn(name = "LOCATION_ID")
     @ManyToOne(fetch = FetchType.LAZY)
     private Location location;
+
     @JoinColumn(name = "UNIT_ID")
     @ManyToOne(fetch = FetchType.LAZY)
     private Unit unit;
+
+    public CoefficientType getCoefficientType() {
+        return coefficientType;
+    }
+
+    public void setCoefficientType(CoefficientType coefficientType) {
+        this.coefficientType = coefficientType;
+    }
+
+    public Double getValue() {
+        return value;
+    }
+
+    public void setValue(Double value) {
+        this.value = value;
+    }
 
     public Unit getUnit() {
         return unit;

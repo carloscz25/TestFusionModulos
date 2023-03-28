@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<fragment xmlns="http://jmix.io/schema/ui/fragment">
+    <data>
+        <instance id="addressDc"
+                  class="main.entity.central.Address"
+                  fetchPlan="_base" provided="true">
+            <loader/>
+        </instance>
+    </data>
+    <layout expand="scrollBox" width="100%">
+        <scrollBox id="scrollBox" spacing="true" width="100%" >
+
+            <textField id="nameField" property="name" caption="msg:///addressName"/>
+            <vbox width="100%" spacing="true" >
+                <hbox width="100%" spacing="true">
+                    <textField width="100%" box.expandRatio="3" caption="msg:///wayType" dataContainer="addressDc" id="wayField" property="way"/>
+                    <textField width="100%" box.expandRatio="8" caption="msg:///wayName" dataContainer="addressDc" id="wayNameField" property="wayName"/>
+                    <textField width="100%" box.expandRatio="3" caption="msg:///wayNumber" dataContainer="addressDc" id="wayNumberField" property="wayNumber"/>
+
+                </hbox>
+                <hbox width="100%" spacing="true">
+                    <textField width="100%" caption="msg:///level" dataContainer="addressDc" id="levelField" property="level"/>
+                    <textField width="100%" caption="msg:///door" dataContainer="addressDc" id="doorField" property="door"/>
+                    <textField width="100%" caption="msg:///block" dataContainer="addressDc" id="blockField" property="block"/>
+                </hbox>
+                <hbox width="100%" spacing="true">
+                    <textField box.expandRatio="3" width="100%" caption="msg:///postalCode" dataContainer="addressDc" id="postalCodeField" property="postalCode"/>
+                    <textField box.expandRatio="7" width="100%" caption="msg:///district" dataContainer="addressDc" id="districtField" property="district"/>
+                    <textField box.expandRatio="7" width="100%" caption="msg:///town" dataContainer="addressDc" id="townField" property="town"/>
+                </hbox>
+                <hbox spacing="true" width="100%">
+                    <textField width="100%" caption="msg:///province" dataContainer="addressDc" id="provinceField" property="province"/>
+                    <textField width="100%" caption="msg:///region" dataContainer="addressDc" id="regionField" property="region"/>
+                    <textField width="100%" caption="msg:///country" dataContainer="addressDc" id="countryField" property="country"/>
+                </hbox>
+                <hbox width="100%" spacing="true">
+                    <textArea  width="100%" caption="msg:///observations" dataContainer="addressDc" id="observationsField" property="observations"/>
+                    <checkBox caption="msg:///addressMailDestination" dataContainer="addressDc" id="addressIsMailDestinationField" property="addressIsMailDestination"/>
+
+                </hbox>
+
+            </vbox>
+
+
+        </scrollBox>
+    </layout>
+</fragment>
+
