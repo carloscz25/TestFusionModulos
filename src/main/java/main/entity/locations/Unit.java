@@ -66,12 +66,15 @@ public class Unit {
     @OneToMany(mappedBy = "unit")
     private List<Coefficient> coefficients;
 
-    @JmixProperty
-    @Transient
-    private String fullDescriptiveName;
     @JoinColumn(name = "LOCATION_ID")
     @ManyToOne(fetch = FetchType.LAZY)
     private Location location;
+
+    @Transient
+    @JmixProperty
+    public String getFullDescriptiveName() {
+        return this.location.getName() + " " + this.getLevel() + " " + this.getDoor();
+    }
 
     public Location getLocation() {
         return location;
@@ -175,10 +178,6 @@ public class Unit {
 
     public void setOccupancyCertificates(List<OccupancyCertificate> occupancyCertificates) {
         this.occupancyCertificates = occupancyCertificates;
-    }
-
-    public String getFullDescriptiveName() {
-        return fullDescriptiveName;
     }
 
     public String getDoor() {

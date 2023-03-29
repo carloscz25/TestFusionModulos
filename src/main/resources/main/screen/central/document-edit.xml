@@ -12,6 +12,7 @@
             </fetchPlan>
             <loader/>
             <collection id="additionalConceptsDc" property="additionalConcepts" />
+            <collection id="allocationsDc" property="allocations" />
             <instance id="attachmentCollectionDc" property="attachmentCollection"/>
         </instance>
     </data>
@@ -47,30 +48,46 @@
                         <dateField dataContainer="documentDc" id="issueDateField" property="issueDate"/>
                         <textArea dataContainer="documentDc" id="descriptionField" property="description" rows="5"/>
                         <textField dataContainer="documentDc" id="totalBaseField" property="totalBase"/>
-                        <groupTable dataContainer="additionalConceptsDc" id="tblAdditionalConcepts" width="100%" height="250px">
-                            <actions>
-                                <action id="createAC" type="create"></action>
-                                <action id="editAC" type="edit"></action>
-                                <action id="removeAC" type="remove"></action>
-                            </actions>
-                            <buttonsPanel>
-                                <button id="btnCreateAC" action="tblAdditionalConcepts.createAC"/>
-                                <button id="btnEditAC" action="tblAdditionalConcepts.editAC"/>
-                                <button id="btnRemoveAC" action="tblAdditionalConcepts.removeAC"/>
-                            </buttonsPanel>
-                            <columns>
-                                <column id="additionalConceptType" caption="Type"></column>
-                                <column id="base"></column>
-                                <column id="percentage" caption="%"></column>
-                                <column id="quote"></column>
-                            </columns>
-                        </groupTable>
+                        <hbox width="100%" spacing="true">
+                            <table dataContainer="additionalConceptsDc" id="tblAdditionalConcepts" width="100%" height="250px">
+                                <actions>
+                                    <action id="createAC" type="create"></action>
+                                    <action id="editAC" type="edit"></action>
+                                    <action id="removeAC" type="remove"></action>
+                                </actions>
+                                <buttonsPanel>
+                                    <button id="btnCreateAC" action="tblAdditionalConcepts.createAC"/>
+                                    <button id="btnEditAC" action="tblAdditionalConcepts.editAC"/>
+                                    <button id="btnRemoveAC" action="tblAdditionalConcepts.removeAC"/>
+                                </buttonsPanel>
+                                <columns>
+                                    <column id="additionalConceptType" caption="Type"></column>
+                                    <column id="base"></column>
+                                    <column id="percentage" caption="%"></column>
+                                    <column id="quote"></column>
+                                </columns>
+                            </table>
+                            <table dataContainer="allocationsDc" id="tblAllocations" width="100%" height="250px" visible="false">
+                                <actions>
+                                    <action id="createAll" type="create"></action>
+                                    <action id="editAll" type="edit"></action>
+                                    <action id="removeAll" type="remove"></action>
+                                </actions>
+                                <buttonsPanel>
+                                    <button id="btnCreateAll" action="tblAllocations.createAll"/>
+                                    <button id="btnEditAll" action="tblAllocations.editAll"/>
+                                    <button id="btnRemoveAll" action="tblAllocations.removeAll"/>
+                                </buttonsPanel>
+                                <columns>
+                                    <column id="cycle.code" caption="Type"></column>
+                                    <column id="allocationPercent"></column>
+                                    <column id="allocationAmount" caption="%"></column>
+                                </columns>
+                            </table>
+                        </hbox>
                         <textField dataContainer="documentDc" id="totalAfterAdditionalConceptsField" property="totalAfterAdditionalConcepts"/>
                         <checkBox dataContainer="documentDc" id="ommitDocumentAtPaymentControlField" property="ommitDocumentAtPaymentControl"/>
-                        <!-- part allocations : check if module projects is activated -->
-                        <vbox id="vbxBridgedAllocations">
-                            <!-- controller in charge of adding the allocations fragment -->
-                        </vbox>
+
                 </vbox>
 
 

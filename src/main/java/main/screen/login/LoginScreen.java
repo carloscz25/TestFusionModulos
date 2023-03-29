@@ -14,6 +14,7 @@ import io.jmix.ui.component.TextField;
 import io.jmix.ui.navigation.Route;
 import io.jmix.ui.screen.*;
 import io.jmix.ui.security.UiLoginProperties;
+import main.entity.bridge.Bridges;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,9 +61,16 @@ public class LoginScreen extends Screen {
     private JmixApp app;
 
     private final Logger log = LoggerFactory.getLogger(LoginScreen.class);
+    @Autowired
+    private Bridges bridges;
 
     @Subscribe
     private void onInit(InitEvent event) {
+
+        //pending: determine if this is right location for this call
+        bridges.init();
+        //end pending
+
         usernameField.focus();
         initLocalesField();
         initDefaultCredentials();

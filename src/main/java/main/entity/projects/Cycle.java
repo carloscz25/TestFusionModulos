@@ -1,9 +1,9 @@
 package main.entity.projects;
 
-import main.entity.central.AttachmentCollection;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
+import main.entity.central.AttachmentCollection;
 
 import javax.persistence.*;
 import java.util.Date;

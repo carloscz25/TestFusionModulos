@@ -1,9 +1,10 @@
 package main.entity.central;
 
-import main.entity.bridge.Allocation;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
+import io.jmix.core.metamodel.annotation.JmixProperty;
+import main.entity.bridge.Allocation;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -56,6 +57,12 @@ public class Document {
 
     @OneToMany(mappedBy = "allocatableDocument")
     private List<Allocation> allocations;
+
+    @Transient
+    @JmixProperty
+    public String getDescriptiveText() {
+        return this.supplier.getCommercialName() + " " + this.getDocumentNumber();
+    }
 
     public List<Allocation> getAllocations() {
         return allocations;

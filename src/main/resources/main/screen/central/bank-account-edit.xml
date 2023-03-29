@@ -24,20 +24,27 @@
     </actions>
     <dialogMode height="600"
                 width="800"/>
-    <layout spacing="true" expand="editActions">
-        <form id="form" dataContainer="bankAccountDc">
-            <column width="350px">
-                <textField id="fullBankAccountCodeField" property="fullBankAccountCode"/>
-                <textField id="financialInstitucionPartField" property="financialInstitucionPart"/>
-                <textField id="officePartField" property="officePart"/>
-                <textField id="controlDigitsField" property="controlDigits"/>
-                <textField id="accountNumberField" property="accountNumber"/>
-                <textField id="financialInstitutionNameField" property="financialInstitutionName"/>
-                <textField id="swiftBankCodeField" property="swiftBankCode"/>
-                <textField id="swiftCountryCodeField" property="swiftCountryCode"/>
-                <textField id="swiftControlDigitsField" property="swiftControlDigits"/>
-            </column>
-        </form>
+    <layout spacing="true" expand="main">
+        <vbox id="main">
+            <form id="form" dataContainer="bankAccountDc">
+
+                <textField id="fullBankAccountCodeField" property="fullBankAccountCode" width="100%" enable="false"/>
+                <textField id="financialInstitutionNameField" property="financialInstitutionName" width="100%"/>
+                <textField id="swiftBankCodeField" property="swiftBankCode" width="50%"/>
+
+                    <textField id="swiftCountryCodeField" property="swiftCountryCode" width="20%"/>
+                    <textField id="swiftControlDigitsField" property="swiftControlDigits" width="20%"/>
+                    <textField id="financialInstitucionPartField" property="financialInstitucionPart" width="40%"/>
+                    <textField id="officePartField" property="officePart" width="40%"/>
+                    <textField id="controlDigitsField" property="controlDigits" width="20%"/>
+                    <textField id="accountNumberField" property="accountNumber" width="70%"/>
+
+
+
+
+
+            </form>
+        </vbox>
         <hbox id="editActions" spacing="true">
             <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
             <button id="closeBtn" action="windowClose"/>

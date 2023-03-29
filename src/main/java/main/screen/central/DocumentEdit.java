@@ -8,6 +8,7 @@ import io.jmix.ui.component.*;
 import io.jmix.ui.model.DataContext;
 import io.jmix.ui.model.InstanceContainer;
 import io.jmix.ui.screen.*;
+import main.entity.bridge.Allocation;
 import main.entity.bridge.Bridges;
 import main.entity.bridge.Modules;
 import main.entity.central.AdditionalConceptRecord;
@@ -26,7 +27,7 @@ import java.util.ArrayList;
 public class DocumentEdit extends StandardEditor<Document> {
 
     @Autowired
-    private GroupTable<AdditionalConceptRecord> tblAdditionalConcepts;
+    private Table<AdditionalConceptRecord> tblAdditionalConcepts;
     @Autowired
     private ScreenBuilders screenBuilders;
     @Autowired
@@ -43,6 +44,8 @@ public class DocumentEdit extends StandardEditor<Document> {
     private VBoxLayout vbxBridgedAllocations;
     @Autowired
     private Fragments fragments;
+    @Autowired
+    private Table<Allocation> tblAllocations;
 
     @Subscribe
     public void onAfterInit(AfterInitEvent event) {
@@ -50,6 +53,7 @@ public class DocumentEdit extends StandardEditor<Document> {
             AllocationFragment af = fragments.create(this, AllocationFragment.class);
             vbxBridgedAllocations.add(af.getFragment());
         }
+
     }
 
 
@@ -72,6 +76,10 @@ public class DocumentEdit extends StandardEditor<Document> {
                     .setMimeType("application/pdf");
         });
 
+        if (bridges.isModuleActive(Modules.PROJECTS)){
+            tblAllocations.setVisible(true);
+        }
+
 
 
     }
@@ -82,6 +90,7 @@ public class DocumentEdit extends StandardEditor<Document> {
     public void onTblAdditionalConceptsCreateAC(Action.ActionPerformedEvent event) {
         screenBuilders.editor(AdditionalConceptRecord.class, this).newEntity()
                 .withOpenMode(OpenMode.DIALOG)
+                .withInitializer(e->{e.setAllocatableDocument(this.documentDc.getItem());})
                 .withListComponent(tblAdditionalConcepts)
                 .withParentDataContext(dataContext)
                 .build().show();
@@ -100,6 +109,33 @@ public class DocumentEdit extends StandardEditor<Document> {
                 .withParentDataContext(dataContext)
                 .build().show();
     }
+
+    @Subscribe("tblAllocations.createAll")
+    public void onTblAllocationsCreateAll(Action.ActionPerformedEvent event) {
+        screenBuilders.editor(Allocation.class, this).newEntity()
+                .withOpenMode(OpenMode.DIALOG)
+                .withInitializer(e->{e.setAllocatableDocument(this.documentDc.getItem());})
+                .withListComponent(tblAllocations)
+                .withParentDataContext(dataContext)
+                .build().show();
+    }
+
+    @Install(to = "tblAllocations.editAll", subject = "enabledRule")
+    private boolean tblAllocationsEditAllEnabledRule() {
+        return tblAllocations.getSingleSelected()!=null;
+    }
+
+    @Subscribe("tblAllocations.editAll")
+    public void onTblAllocationsEditAll(Action.ActionPerformedEvent event) {
+        screenBuilders.editor(Allocation.class, this).editEntity(tblAllocations.getSingleSelected())
+                .withOpenMode(OpenMode.DIALOG)
+                .withListComponent(tblAllocations)
+                .withParentDataContext(dataContext)
+                .build().show();
+    }
+
+
+
 
 
 }

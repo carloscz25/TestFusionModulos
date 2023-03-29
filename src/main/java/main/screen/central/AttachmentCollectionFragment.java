@@ -22,6 +22,7 @@ import io.jmix.ui.upload.TemporaryStorage;
 import main.entity.central.Attachment;
 import main.entity.central.AttachmentCollection;
 import main.screen.locations.LocationEdit;
+import main.screen.locations.UnitEdit;
 import org.eclipse.persistence.internal.oxm.XMLBinaryAttachmentHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -210,6 +211,15 @@ public class AttachmentCollectionFragment extends ScreenFragment {
         }
         if (fr instanceof LocationEdit) {
             LocationEdit le = (LocationEdit) fr;
+            le.addAfterShowListener(e -> {
+                AttachmentCollection ac = le.getEditedEntity().getAttachmentCollection();
+                List<AttachmentCollection> aacc = getCollectionsFromTopCollection(ac);
+                attachmentCollectionsDc.getMutableItems().clear();
+                attachmentCollectionsDc.getMutableItems().addAll(aacc);
+            });
+        }
+        if (fr instanceof UnitEdit) {
+            UnitEdit le = (UnitEdit) fr;
             le.addAfterShowListener(e -> {
                 AttachmentCollection ac = le.getEditedEntity().getAttachmentCollection();
                 List<AttachmentCollection> aacc = getCollectionsFromTopCollection(ac);

@@ -10,6 +10,7 @@
         <item screen="Location.browse" caption="msg://main.screen.locations/locationBrowse.menu"/>
         <item screen="Unit.browse" caption="msg://main.screen.locations/unitBrowse.menu"/>
         <item screen="CoefficientType.browse" caption="msg://main.screen.locations/coefficientTypeBrowse.menu"/>
+        <item screen="Owner.browse" caption="msg://main.entity.locations/ownerBrowse.menu"/>
     </menu>
 
 </menu-config>

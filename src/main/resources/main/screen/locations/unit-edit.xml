@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://jmix.io/schema/ui/window"
         caption="msg://unitEdit.caption"
-        focusComponent="form">
+        >
     <data>
         <instance id="unitDc"
                   class="main.entity.locations.Unit">
@@ -17,6 +17,9 @@
                 <property name="fullDescriptiveName"/>
             </fetchPlan>
             <loader/>
+            <instance id="attachmentCollectionDc" property="attachmentCollection"/>
+            <collection id="occupancyCertificatesDc" property="occupancyCertificates"/>
+            <collection id="energyCertificatesDc" property="energyCertificates"/>
         </instance>
     </data>
     <facets>
@@ -32,48 +35,98 @@
                 caption="msg:///actions.Close"
                 icon="EDITOR_CANCEL"/>
     </actions>
-    <dialogMode height="600"
+    <dialogMode height="1000"
                 width="800"/>
     <layout spacing="true" expand="scrollBox">
-        <scrollBox id="scrollBox" spacing="true">
-            <form id="form" dataContainer="unitDc">
-                <column width="350px">
-                    <entityPicker id="locationField" property="location">
-                        <actions>
-                            <action id="entityLookup" type="entity_lookup"/>
-                            <action id="entityClear" type="entity_clear"/>
-                        </actions>
-                    </entityPicker>
-                    <textField id="levelField" property="level"/>
-                    <textField id="doorField" property="door"/>
-                    <comboBox id="typeField" property="type"/>
-                    <textField id="areaField" property="area"/>
-                    <textField id="abbreviationLevelDoorField" property="abbreviationLevelDoor"/>
-                    <textField id="landRegistryInformationField" property="landRegistryInformation"/>
-                    <textField id="observationsField" property="observations"/>
-                    <entityPicker id="attachmentCollectionField" property="attachmentCollection">
-                        <actions>
-                            <action id="entityLookup" type="entity_lookup"/>
-                            <action id="entityClear" type="entity_clear"/>
-                        </actions>
-                    </entityPicker>
-                    <entityPicker id="ownerField" property="owner">
-                        <actions>
-                            <action id="entityLookup" type="entity_lookup"/>
-                            <action id="entityClear" type="entity_clear"/>
-                        </actions>
-                    </entityPicker>
-                    <entityPicker id="unitPlanField" property="unitPlan">
-                        <actions>
-                            <action id="entityLookup" type="entity_lookup"/>
-                            <action id="entityClear" type="entity_clear"/>
-                        </actions>
-                    </entityPicker>
-                    <checkBox id="excludeFromEmptyUnitSearchField" property="excludeFromEmptyUnitSearch"/>
-                    <textField id="fullDescriptiveNameField" property="fullDescriptiveName"/>
-                </column>
-            </form>
+        <scrollBox id="scrollBox" spacing="true" height="100%">
+
+                <hbox width="50%">
+                    <hbox spacing="true">
+                        <entityPicker caption="msg:///location" box.expandRatio="5" dataContainer="unitDc" id="locationField" property="location" captionProperty="name">
+                            <actions>
+                                <action id="entityLookup" type="entity_lookup"/>
+                                <action id="entityClear" type="entity_clear"/>
+                            </actions>
+                        </entityPicker>
+                        <textField caption="msg:///level" box.expandRatio="1" dataContainer="unitDc" id="levelField" property="level"/>
+                        <textField caption="msg:///door" box.expandRatio="1" dataContainer="unitDc" id="doorField" property="door"/>
+                        <textField box.expandRatio="5" caption="msg:///fullDescriptiveName" dataContainer="unitDc" id="fullDescriptiveNameField" property="fullDescriptiveName"/>
+                    </hbox>
+
+                </hbox>
+                <hbox spacing="true">
+                        <comboBox caption="msg:///type" box.expandRatio="3" dataContainer="unitDc" id="typeField" property="type"/>
+                        <textField caption="msg:///area" box.expandRatio="1" dataContainer="unitDc" id="areaField" property="area"/>
+                        <textField  caption="msg:///abbrev" box.expandRatio="1" dataContainer="unitDc" id="abbreviationLevelDoorField" property="abbreviationLevelDoor"/>
+                </hbox>
+                <textField caption="msg:///landRegistryInformation" dataContainer="unitDc" id="landRegistryInformationField" property="landRegistryInformation" width="25%"/>
+                <textArea caption="msg:///observations" dataContainer="unitDc" id="observationsField" property="observations" width="25%"/>
+
+                <entityPicker caption="msg:///owner" dataContainer="unitDc" id="ownerField" property="owner" width="20%">
+                    <actions>
+                        <action id="entityLookup" type="entity_lookup"/>
+                        <action id="entityClear" type="entity_clear"/>
+                    </actions>
+                </entityPicker>
+                <entityPicker caption="msg:///unitPlan" dataContainer="unitDc" id="unitPlanField" property="unitPlan" width="20%">
+                    <actions>
+                        <action id="entityLookup" type="entity_lookup"/>
+                        <action id="entityClear" type="entity_clear"/>
+                    </actions>
+                </entityPicker>
+                <checkBox caption="msg:///excludeFromEmptyUnitSearch" dataContainer="unitDc" id="excludeFromEmptyUnitSearchField" property="excludeFromEmptyUnitSearch"/>
+                <tabSheet id="tab" width="100%" >
+                    <tab id="tabAttachments" caption="Attachments" visible="true">
+                        <fragment  id="frgAttachmentCollection" width="100%" height="500px" screen="AttachmentCollectionFragment"/>
+                    </tab>
+                    <tab id="tabOccupancyCertificates" caption="Occupancy Certificates">
+                        <table dataContainer="occupancyCertificatesDc" id="tblOccupancyCertificates" width="100%" height="400px">
+                            <actions>
+                                <action id="createOC" type="create"></action>
+                                <action id="editOC" type="edit"></action>
+                                <action id="removeOC" type="remove"></action>
+                            </actions>
+                            <buttonsPanel>
+                                <button id="btnCreateOC" action="tblOccupancyCertificates.createOC"/>
+                                <button id="btnEditOC" action="tblOccupancyCertificates.editOC" />
+                                <button id="btnRemoveOC" action="tblOccupancyCertificates.removeOC" />
+
+                            </buttonsPanel>
+                            <columns>
+                                <column id="certificateId"></column>
+                                <column id="issueDate"></column>
+                                <column id="expirationDate"></column>
+                            </columns>
+                        </table>
+                    </tab>
+                    <tab id="tabEnergyCertificates" caption="Energy Certificates" visible="true">
+
+                        <table dataContainer="energyCertificatesDc" id="tblEnergyCertificates" width="100%" height="400px">
+                            <actions>
+                                <action id="createEC" type="create"></action>
+                                <action id="editEC" type="edit"></action>
+                                <action id="removeEC" type="remove"></action>
+                            </actions>
+                            <buttonsPanel>
+                                <button id="btnCreateEC" action="tblEnergyCertificates.createEC"/>
+                                <button id="btnEditEC" action="tblEnergyCertificates.editEC" />
+                                <button id="btnRemoveEC" action="tblEnergyCertificates.removeEC" />
+
+                            </buttonsPanel>
+                            <columns>
+                                <column id="registryNumber"></column>
+                                <column id="issueDate"></column>
+                                <column id="expirationDate"></column>
+                                <column id="emissionsQualification"/>
+                                <column id="energyConsumptionQualification"></column>
+                            </columns>
+                        </table>
+                    </tab>
+                </tabSheet>
+
+
         </scrollBox>
+
         <hbox id="editActions" spacing="true">
             <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
             <button id="closeBtn" action="windowClose"/>

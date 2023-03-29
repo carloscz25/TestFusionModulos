@@ -21,12 +21,10 @@
             <collection id="unitsDc" property="units"/>
         </instance>
 
-        <collection id="coefficientTypesDc" class="main.entity.locations.CoefficientType">
-            <loader id="coefficientTypesDl"/>
-        </collection>
         <collection id="coefficientTypesOptDc" class="main.entity.locations.CoefficientType">
             <loader id="coefficientTypesOptDl"/>
         </collection>
+
         <collection id="coefficientsDc" class="main.entity.locations.Coefficient">
             <loader id="coefficientsDl"/>
         </collection>
@@ -47,12 +45,14 @@
     <dialogMode height="600"
                 width="800"/>
     <layout spacing="true" expand="scrollBox">
+
         <scrollBox id="scrollBox" spacing="true" width="100%">
 
+
                 <hbox width="50%" expand="nameField" spacing="true">
-                    <textField id="nameField" property="name" caption="msg:///locationName"/>
+                    <textField id="nameField" property="name" caption="msg:///locationName" dataContainer="locationDc"/>
                     <textField id="locationAbbreviationField" property="locationAbbreviation" width="auto"
-                    caption="msg:///abbreviationField"/>
+                    caption="msg:///abbreviationField" dataContainer="locationDc"/>
                 </hbox>
 
             <hbox width="100%" spacing="true">
@@ -79,13 +79,23 @@
                     </tab>
                     <tab id="coefficients">
                         <hbox width="100%" height="100%" spacing="true">
-                            <singleSelectList
+                            <singleSelectList id="tblCoefficientTypes"
                                     caption="msg:///availableCoefficients" optionsContainer="coefficientTypesOptDc"
                                           height="100%" width="100%" box.expandRatio="1"/>
                             <table caption="msg:///coefficientsUnits" width="100%" height="100%" box.expandRatio="5"
                                     id="tblCoefficients" dataContainer="coefficientsDc">
+                                <buttonsPanel>
+                                    <button id="rstCoefficients" caption="msg:///resetCoefficients"/>
+                                    <button id="edtCoefficient" caption="msg:///editCoefficient"/>
+                                </buttonsPanel>
+                                <actions>
+                                    <action id="edtCoefficientAction" type="edit"></action>
+                                </actions>
                                 <columns>
-                                    <column id="coefficient"></column>
+                                    <column id="unit.level"/>
+                                    <column id="unit.door"/>
+                                    <column id="coefficientType.name"></column>
+                                    <column id="value"/>
                                 </columns>
                             </table>
                         </hbox>
@@ -97,24 +107,24 @@
             <hbox spacing="true" width="100%" >
                 <vbox spacing="true" width="100%" box.expandRatio="3">
                     <hbox caption="msg:///lagLong" spacing="true" width="100%">
-                        <textField width="100%" caption="msg:///lat" id="latitudeField" property="latitude"/>
-                        <textField width="100%" caption="msg:///long" id="longitudeField" property="longitude"/>
+                        <textField width="100%" caption="msg:///lat" id="latitudeField" property="latitude" dataContainer="locationDc"/>
+                        <textField width="100%" caption="msg:///long" id="longitudeField" property="longitude" dataContainer="locationDc"/>
                     </hbox>
-                    <textField caption="msg:///numOfLifts" id="numberOfLiftsField" property="numberOfLifts"/>
-                    <checkBox caption="msg:///isVerticalProperty" id="verticalPropertyField" property="verticalProperty"/>
-                    <entityPicker caption="msg:///owner" id="ownerField" property="owner" width="100%">
+                    <textField caption="msg:///numOfLifts" id="numberOfLiftsField" property="numberOfLifts" dataContainer="locationDc"/>
+                    <checkBox caption="msg:///isVerticalProperty" id="verticalPropertyField" property="verticalProperty" dataContainer="locationDc"/>
+                    <entityPicker caption="msg:///owner" id="ownerField" property="owner" width="100%" dataContainer="locationDc">
                         <actions>
                             <action id="entityLookup" type="entity_lookup"/>
                             <action id="entityClear" type="entity_clear"/>
                         </actions>
                     </entityPicker>
-                    <textField width="80%" caption="msg:///landRegistryInfo" id="landRegistryInformationField" property="landRegistryInformation"/>
+                    <textField width="80%" caption="msg:///landRegistryInfo" id="landRegistryInformationField" property="landRegistryInformation" dataContainer="locationDc"/>
                 </vbox>
                 <fragment box.expandRatio="7" id="frgAttCol" screen="AttachmentCollectionFragment" width="100%" height="100%"/>
             </hbox>
 
-
         </scrollBox>
+
         <hbox id="editActions" spacing="true">
             <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
             <button id="closeBtn" action="windowClose"/>

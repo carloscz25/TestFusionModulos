@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://jmix.io/schema/ui/window"
-        caption="msg://allocationEdit.caption"
+        caption="msg://coefficientEdit.caption"
         focusComponent="form">
     <data>
-        <instance id="allocationDc"
-                  class="main.entity.bridge.Allocation">
+        <instance id="coefficientDc"
+                  class="main.entity.locations.Coefficient">
             <fetchPlan extends="_base">
-                <property name="allocatableDocument" fetchPlan="_base"/>
-                <property name="cycle" fetchPlan="_base"/>
+                <property name="coefficientType" fetchPlan="_base"/>
+                <property name="location" fetchPlan="_base"/>
+                <property name="unit" fetchPlan="_base"/>
             </fetchPlan>
             <loader/>
         </instance>
@@ -28,30 +29,32 @@
     <dialogMode height="600"
                 width="800"/>
     <layout spacing="true" expand="main">
-        <vbox id="main" width="100%">
-        <form id="form" dataContainer="allocationDc" width="100%">
-            <column width="100%">
-                <entityPicker id="allocatableDocumentField" property="allocatableDocument" width="100%" captionProperty="descriptiveText">
+        <vbox id="main">
+        <form id="form" dataContainer="coefficientDc">
+
+            <column width="350px">
+
+                <entityPicker id="coefficientTypeField" property="coefficientType" enable="false">
                     <actions>
                         <action id="entityLookup" type="entity_lookup"/>
                         <action id="entityClear" type="entity_clear"/>
                     </actions>
                 </entityPicker>
-                <entityPicker id="cycleField" property="cycle" width="100%">
+                <entityPicker id="locationField" property="location" enable="false">
                     <actions>
                         <action id="entityLookup" type="entity_lookup"/>
                         <action id="entityClear" type="entity_clear"/>
                     </actions>
                 </entityPicker>
-                <textArea id="descriptionField" property="description" width="100%"/>
-                <textField id="allocationAmountField" property="allocationAmount"/>
-                <hbox width="100%" caption="Allocation %">
-                    <textField box.expandRatio="5" id="allocationPercentField" property="allocationPercent"/>
-                    <button box.expandRatio="1" id="btn100" caption="100%"/>
-                    <button box.expandRatio="1" id="btn50" caption="50%"/>
-                    <button box.expandRatio="" id="btn33" caption="33%"/>
-                </hbox>
+                <entityPicker id="unitField" property="unit" enable="false">
+                    <actions>
+                        <action id="entityLookup" type="entity_lookup"/>
+                        <action id="entityClear" type="entity_clear"/>
+                    </actions>
+                </entityPicker>
+                <textField id="valueField" property="value"/>
             </column>
+
         </form>
         </vbox>
         <hbox id="editActions" spacing="true">

@@ -1,8 +1,8 @@
 package main.entity.projects;
 
-import main.entity.central.Supplier;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.metamodel.annotation.JmixEntity;
+import main.entity.central.Supplier;
 
 import javax.persistence.*;
 import java.util.Date;
